@@ -1,5 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
+import { PortfolioNavbar } from '@/components/portfolio-navbar';
+import { home } from '@/routes';
 
 const heroImageUrl = '/hero-img.png';
 
@@ -26,36 +28,7 @@ export default function Welcome() {
             </Head>
 
             <div className="bg-background font-sans text-on-surface antialiased">
-                <header className="glass-nav fixed top-0 right-0 left-0 z-50 border-b border-outline-variant/15">
-                    <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6">
-                        <div className="font-display text-xl font-bold tracking-tight">
-                            ARTISAN
-                        </div>
-                        <nav className="hidden items-center gap-8 md:flex">
-                            <a className="font-mono text-[10px] tracking-[0.2em] text-primary" href="#home">
-                                HOME
-                            </a>
-                            <a className="font-mono text-[10px] tracking-[0.2em] text-on-surface-variant hover:text-on-surface" href="#stack">
-                                STACK
-                            </a>
-                            <a className="font-mono text-[10px] tracking-[0.2em] text-on-surface-variant hover:text-on-surface" href="#process">
-                                PROCESS
-                            </a>
-                            <a className="font-mono text-[10px] tracking-[0.2em] text-on-surface-variant hover:text-on-surface" href="#contact">
-                                CONTACT
-                            </a>
-                            <a className="font-mono text-[10px] tracking-[0.2em] text-on-surface-variant hover:text-on-surface" href="#projects">
-                                PROJECTS
-                            </a>
-                        </nav>
-                        <a
-                            className="rounded-md bg-primary px-5 py-2 font-mono text-[10px] font-semibold tracking-[0.2em] text-on-primary transition-colors hover:bg-primary-container"
-                            href="#contact"
-                        >
-                            HIRE ME
-                        </a>
-                    </div>
-                </header>
+                <PortfolioNavbar homeUrl={home.url()} activeItem="home" />
 
                 <main>
                     <section id="home" className="relative flex min-h-screen items-center overflow-hidden bg-surface pt-20">
