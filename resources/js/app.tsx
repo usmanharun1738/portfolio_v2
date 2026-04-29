@@ -18,6 +18,7 @@ createInertiaApp({
                 case name === 'stack':
                 case name === 'process':
                 case name === 'resume':
+                case name === 'case-studies/face-recognition':
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;

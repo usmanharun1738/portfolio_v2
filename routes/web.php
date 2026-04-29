@@ -8,6 +8,7 @@ Route::inertia('/', 'welcome', [
 ])->name('home');
 
 Route::inertia('/projects', 'projects')->name('projects.index');
+Route::inertia('/projects/face-recognition', 'case-studies/face-recognition')->name('projects.face-recognition');
 
 Route::inertia('/contact', 'contact')->name('contact');
 

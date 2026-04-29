@@ -1,7 +1,8 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { home } from '@/routes';
+import { faceRecognition } from '@/routes/projects';
 
 export default function Projects() {
     useEffect(() => {
@@ -79,10 +80,13 @@ export default function Projects() {
                                         </div>
                                     </div>
                                     <div className="mt-8 flex items-center gap-4">
-                                        <a className="group/btn font-mono text-on-surface flex items-center gap-2 text-xs font-bold tracking-widest uppercase" href="#">
+                                        <Link
+                                            className="group/btn font-mono text-on-surface flex items-center gap-2 text-xs font-bold tracking-widest uppercase"
+                                            href={faceRecognition.url()}
+                                        >
                                             View Case Study
                                             <span className="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">trending_flat</span>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="absolute right-0 bottom-0 opacity-10 transition-opacity group-hover:opacity-20">
