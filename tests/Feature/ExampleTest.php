@@ -28,6 +28,14 @@ test('face recognition case study page returns a successful response', function 
     );
 });
 
+test('car rental case study page returns a successful response', function () {
+    $response = $this->get(route('projects.car-rental'));
+
+    $response->assertOk()->assertInertia(
+        fn (Assert $page) => $page->component('case-studies/car-rental'),
+    );
+});
+
 test('contact page returns a successful response', function () {
     $response = $this->get(route('contact'));
 

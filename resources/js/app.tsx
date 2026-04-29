@@ -14,11 +14,11 @@ createInertiaApp({
         switch (true) {
             case name === 'welcome':
             case name === 'projects':
-                case name === 'contact':
-                case name === 'stack':
-                case name === 'process':
-                case name === 'resume':
-                case name === 'case-studies/face-recognition':
+            case name === 'contact':
+            case name === 'stack':
+            case name === 'process':
+            case name === 'resume':
+            case name.startsWith('case-studies/'):
                 return null;
             case name.startsWith('auth/'):
                 return AuthLayout;

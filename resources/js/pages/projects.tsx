@@ -2,7 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { home } from '@/routes';
-import { faceRecognition } from '@/routes/projects';
+import { faceRecognition, carRental } from '@/routes/projects';
 
 export default function Projects() {
     useEffect(() => {
@@ -98,8 +98,8 @@ export default function Projects() {
                                 </div>
                             </article>
 
-                            <article className="group overflow-hidden bg-surface-container transition-all duration-500 hover:bg-surface-container-high md:col-span-4">
-                                <div className="flex h-full flex-col p-10">
+                            <Link href={carRental.url()} className="group overflow-hidden bg-surface-container transition-all duration-500 hover:bg-surface-container-high md:col-span-4">
+                                <article className="flex h-full flex-col p-10">
                                     <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">02 - Fintech</div>
                                     <h2 className="font-display mb-4 text-2xl font-bold">Car Rental Management</h2>
                                     <p className="mb-8 text-sm leading-relaxed text-secondary">
@@ -112,8 +112,8 @@ export default function Projects() {
                                         </div>
                                         <span className="material-symbols-outlined text-primary transition-transform group-hover:translate-x-2">arrow_outward</span>
                                     </div>
-                                </div>
-                            </article>
+                                </article>
+                            </Link>
 
                             <article className="group overflow-hidden border border-outline-variant/15 bg-surface-container-lowest transition-all duration-500 hover:shadow-xl md:col-span-4">
                                 <div className="flex h-full flex-col p-10">
