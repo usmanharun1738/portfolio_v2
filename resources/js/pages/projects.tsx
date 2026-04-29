@@ -61,42 +61,41 @@ export default function Projects() {
 
                     <section>
                         <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
-                            <article className="group relative overflow-hidden bg-surface-container-low transition-all duration-500 hover:shadow-2xl hover:shadow-on-surface/5 md:col-span-8">
-                                <div className="flex h-full min-h-125 flex-col justify-between p-10 md:p-16">
-                                    <div>
-                                        <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
-                                            01 - Artificial Intelligence
+                              <Link className="group overflow-hidden bg-surface-container transition-all duration-500 hover:bg-surface-container-high md:col-span-4" href={faceRecognition.url()}>
+                                <article className="group relative overflow-hidden bg-surface-container-low transition-all duration-500 hover:shadow-2xl hover:shadow-on-surface/5 md:col-span-8">
+                                    <div className="flex h-full min-h-125 flex-col justify-between p-10 md:p-16">
+                                        <div>
+                                            <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
+                                                01 - Artificial Intelligence
+                                            </div>
+                                            <h2 className="font-display mb-4 text-4xl font-bold transition-colors group-hover:text-primary">
+                                                Face Recognition System
+                                            </h2>
+                                            <p className="mb-8 max-w-md leading-relaxed text-secondary">
+                                                Advanced neural network implementation for real-time identity verification and security access management.
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                <span className="bg-surface-container px-3 py-1 font-mono text-[10px] tracking-wider text-on-surface-variant uppercase">Python</span>
+                                                <span className="bg-surface-container px-3 py-1 font-mono text-[10px] tracking-wider text-on-surface-variant uppercase">OpenCV</span>
+                                                <span className="bg-surface-container px-3 py-1 font-mono text-[10px] tracking-wider text-on-surface-variant uppercase">TensorFlow</span>
+                                            </div>
                                         </div>
-                                        <h2 className="font-display mb-4 text-4xl font-bold transition-colors group-hover:text-primary">
-                                            Face Recognition System
-                                        </h2>
-                                        <p className="mb-8 max-w-md leading-relaxed text-secondary">
-                                            Advanced neural network implementation for real-time identity verification and security access management.
-                                        </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            <span className="bg-surface-container px-3 py-1 font-mono text-[10px] tracking-wider text-on-surface-variant uppercase">Python</span>
-                                            <span className="bg-surface-container px-3 py-1 font-mono text-[10px] tracking-wider text-on-surface-variant uppercase">OpenCV</span>
-                                            <span className="bg-surface-container px-3 py-1 font-mono text-[10px] tracking-wider text-on-surface-variant uppercase">TensorFlow</span>
+                                        <div className="mt-8 flex items-center gap-4">
+
+                                                View Case Study
+                                                <span className="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">trending_flat</span>
+
                                         </div>
                                     </div>
-                                    <div className="mt-8 flex items-center gap-4">
-                                        <Link
-                                            className="group/btn font-mono text-on-surface flex items-center gap-2 text-xs font-bold tracking-widest uppercase"
-                                            href={faceRecognition.url()}
-                                        >
-                                            View Case Study
-                                            <span className="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">trending_flat</span>
-                                        </Link>
+                                    <div className="absolute right-0 bottom-0 opacity-10 transition-opacity group-hover:opacity-20">
+                                        <img
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyCvteD7YHdxRILVMhbmAq9_ucsqwrZyccYo0h_k4KOC3nxV6AaSdwr6YoNec6vF-s-bBp1R60My5jq9ipXvbqPJSgdMwXn5ckYcTWeD16sZ36jgpTclPLkWYbazH0iJU96du8TFWqYCse5xyFSCBZQBvHPwBsKG8LAc2n-oTe1W0RMNTH8g6WczXJETw6xcTAynNsu3AUu8dqmETtdWsVIFymr78UgTjvWMqcww54NnDi9ZqImpcso9JDzfp8KxHBpVwjgsiIxBo"
+                                            alt="origami bird detail"
+                                            className="h-auto w-64 rotate-12 transform"
+                                        />
                                     </div>
-                                </div>
-                                <div className="absolute right-0 bottom-0 opacity-10 transition-opacity group-hover:opacity-20">
-                                    <img
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyCvteD7YHdxRILVMhbmAq9_ucsqwrZyccYo0h_k4KOC3nxV6AaSdwr6YoNec6vF-s-bBp1R60My5jq9ipXvbqPJSgdMwXn5ckYcTWeD16sZ36jgpTclPLkWYbazH0iJU96du8TFWqYCse5xyFSCBZQBvHPwBsKG8LAc2n-oTe1W0RMNTH8g6WczXJETw6xcTAynNsu3AUu8dqmETtdWsVIFymr78UgTjvWMqcww54NnDi9ZqImpcso9JDzfp8KxHBpVwjgsiIxBo"
-                                        alt="origami bird detail"
-                                        className="h-auto w-64 rotate-12 transform"
-                                    />
-                                </div>
-                            </article>
+                                </article>
+                            </Link>
 
                             <Link href={carRental.url()} className="group overflow-hidden bg-surface-container transition-all duration-500 hover:bg-surface-container-high md:col-span-4">
                                 <article className="flex h-full flex-col p-10">

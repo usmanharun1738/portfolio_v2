@@ -46,7 +46,7 @@ export default function Welcome() {
                                     Precision Web &amp; App Engineering
                                 </p>
                                 <h1 className="font-display mb-8 text-6xl leading-[0.9] font-bold tracking-tight text-on-surface md:text-8xl">
-                                    Usman <br /> Haruna.
+                                    Usman <br /> Harun.
                                 </h1>
                                 <div className="mb-10 flex flex-wrap gap-4">
                                     <span className="rounded-full bg-surface-container-low px-4 py-1 font-mono text-[10px] tracking-widest text-on-surface-variant uppercase">
@@ -98,7 +98,7 @@ export default function Welcome() {
                             </div>
                         </div>
 
-                        <div className="pointer-events-none absolute -bottom-24 -left-20 select-none text-[20rem] font-bold text-on-surface/2">
+                        <div className="pointer-events-none absolute -bottom-24  select-none text-[20rem] font-bold text-on-surface/3">
                             PRECISION
                         </div>
                     </section>
@@ -304,53 +304,53 @@ export default function Welcome() {
                         </div>
                     </section>
 
-                    <section id="process" className="relative overflow-hidden bg-on-surface py-32 text-background">
+                    <section id="process" className="relative overflow-hidden bg-surface-container-low py-32 text-background">
                         <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
                             <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">
                                 Methodology
                             </p>
-                            <h2 className="font-display mb-20 text-4xl font-bold tracking-tight md:text-6xl">
+                            <h2 className="font-display mb-20 text-4xl font-bold tracking-tight text-on-surface md:text-6xl">
                                 How I Architect Value.
                             </h2>
 
                             <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
                                 <div className="relative">
-                                    <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-background/10">
+                                    <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-on-secondary-container/30">
                                         01
                                     </span>
                                     <div className="relative">
                                         <h4 className="font-display mb-4 text-2xl font-bold text-primary">
                                             Discovery
                                         </h4>
-                                        <p className="leading-relaxed text-background/60">
+                                        <p className="leading-relaxed text-on-surface">
                                             Deep diving into the business logic, user pain points, and technical requirements before a single line of code is written.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="relative">
-                                    <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-background/10">
+                                    <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-on-secondary-container/30">
                                         02
                                     </span>
                                     <div className="relative">
                                         <h4 className="font-display mb-4 text-2xl font-bold text-primary">
                                             Execution
                                         </h4>
-                                        <p className="leading-relaxed text-background/60">
+                                        <p className="leading-relaxed text-on-surface">
                                             Rapid prototyping followed by high-fidelity development using clean, modular, and well-documented codebases.
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="relative">
-                                    <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-background/10">
+                                    <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-on-secondary-container/30">
                                         03
                                     </span>
                                     <div className="relative">
                                         <h4 className="font-display mb-4 text-2xl font-bold text-primary">
                                             Refinement
                                         </h4>
-                                        <p className="leading-relaxed text-background/60">
+                                        <p className="leading-relaxed text-on-surface">
                                             Continuous testing, optimization for lighthouse scores, and performance tuning to ensure 99.9% uptime and speed.
                                         </p>
                                     </div>
