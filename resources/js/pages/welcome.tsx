@@ -28,7 +28,15 @@ export default function Welcome() {
             </Head>
 
             <div className="bg-background font-sans text-on-surface antialiased">
-                <PortfolioNavbar homeUrl={home.url()} activeItem="home" />
+                <PortfolioNavbar
+                    homeUrl={home.url()}
+                    projectsUrl="/projects"
+                        stackUrl="/stack"
+                        processUrl="/process"
+                        contactUrl="/contact"
+                        resumeUrl="/resume"
+                    activeItem="home"
+                />
 
                 <main>
                     <section id="home" className="relative flex min-h-screen items-center overflow-hidden bg-surface pt-20">

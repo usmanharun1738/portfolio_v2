@@ -31,20 +31,32 @@ export function PortfolioNavbarLink({
 
 type PortfolioNavbarProps = {
     homeUrl: string;
+    projectsUrl?: string;
+        stackUrl?: string;
+        processUrl?: string;
+        contactUrl?: string;
+        resumeUrl?: string;
     activeItem?: string;
 };
 
 export function PortfolioNavbar({
     homeUrl,
+    projectsUrl,
+        stackUrl,
+        processUrl,
+        contactUrl,
+        resumeUrl,
     activeItem = 'home',
 }: PortfolioNavbarProps) {
+    const projectsLink = projectsUrl ?? `${homeUrl}#projects`;
+
     const navItems: PortfolioNavItem[] = [
         { label: 'Home', href: homeUrl, key: 'home' },
-        { label: 'Projects', href: `${homeUrl}#projects`, key: 'projects' },
-        { label: 'Stack', href: `${homeUrl}#stack`, key: 'stack' },
-        { label: 'Process', href: `${homeUrl}#process`, key: 'process' },
-        { label: 'Contact', href: `${homeUrl}#contact`, key: 'contact' },
-        { label: 'Resume', href: `${homeUrl}#resume`, key: 'resume' },
+        { label: 'Projects', href: projectsLink, key: 'projects' },
+            { label: 'Stack', href: stackUrl ?? `${homeUrl}#stack`, key: 'stack' },
+            { label: 'Process', href: processUrl ?? `${homeUrl}#process`, key: 'process' },
+            { label: 'Contact', href: contactUrl ?? `${homeUrl}#contact`, key: 'contact' },
+            { label: 'Resume', href: resumeUrl ?? `${homeUrl}#resume`, key: 'resume' },
     ];
 
     return (
@@ -69,10 +81,17 @@ export function PortfolioNavbar({
 
                 <a
                     href={`${homeUrl}#contact`}
+                        href={contactUrl ?? `${homeUrl}#contact`}
                     className="rounded-lg bg-linear-to-r from-primary to-primary-container px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 ease-out hover:scale-95"
                 >
                     Connect
                 </a>
+                    <a
+                        href={contactUrl ?? `${homeUrl}#contact`}
+                        className="rounded-lg bg-linear-to-r from-primary to-primary-container px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 ease-out hover:scale-95"
+                    >
+                        Connect
+                    </a>
             </nav>
         </header>
     );
