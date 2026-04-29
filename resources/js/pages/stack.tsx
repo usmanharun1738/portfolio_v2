@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { home } from '@/routes';
 
+
+const stackImgUrl = '/stack-img.png'
 export default function Stack() {
     useEffect(() => {
         document.documentElement.classList.remove('dark');
@@ -28,15 +30,19 @@ export default function Stack() {
                                 Technical Arsenal
                             </span>
                             <h1 className="text-6xl md:text-8xl font-display font-black tracking-tighter leading-[0.9] text-on-surface mb-8">
-                                Precision <br /> Engineering.
+                                Precision <br /> <span className="text-primary-container">Engineering.</span>
                             </h1>
                             <p className="text-xl text-on-surface/70 max-w-xl font-light leading-relaxed">
                                 Architecture of high-performance systems and editorial-grade interfaces. A continuous journey of mastering the machine through scalable code and human-centric design.
                             </p>
                         </div>
-                        <div className="hidden md:block w-1/3 aspect-square bg-surface-container-low rounded-xl overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                        <div className="hidden md:block w-1/3 aspect-square bg-surface-container-low rounded-xl overflow-hidden">
                             <div className="w-full h-full flex items-center justify-center">
-                                <span className="material-symbols-outlined text-4xl text-surface-variant">image_not_supported</span>
+                                <img
+                                    src={stackImgUrl}
+                                    alt="Artisan Showcase"
+                                    className="h-full w-full object-cover"
+                                />
                             </div>
                         </div>
                     </div>

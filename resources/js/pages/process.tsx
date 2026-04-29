@@ -27,7 +27,7 @@ export default function Process() {
                             How I Work
                         </p>
                         <h1 className="font-display text-5xl md:text-7xl font-extrabold text-on-surface mb-8 leading-[1.1]">
-                            Engineering a <span className="text-primary">Precise</span> Future.
+                            Engineering  <span className="text-primary-container">Solutions.</span>
                         </h1>
                         <p className="text-xl text-on-surface/70 leading-relaxed">
                             My methodology is a blend of meticulous architecture and high-performance engineering. Every system is built to scale, designed for longevity, and optimized for maximum efficiency.
