@@ -17,7 +17,7 @@ export function PortfolioNavbarLink({
     isActive,
 }: PortfolioNavbarLinkProps) {
     return (
-        <a
+        <Link
             href={item.href}
             className={cn(
                 'font-display border-b-2 border-transparent font-medium tracking-tight transition-colors duration-300 hover:text-primary',
@@ -25,38 +25,42 @@ export function PortfolioNavbarLink({
             )}
         >
             {item.label}
-        </a>
+        </Link>
     );
 }
 
 type PortfolioNavbarProps = {
     homeUrl: string;
     projectsUrl?: string;
-        stackUrl?: string;
-        processUrl?: string;
-        contactUrl?: string;
-        resumeUrl?: string;
+    stackUrl?: string;
+    processUrl?: string;
+    contactUrl?: string;
+    resumeUrl?: string;
     activeItem?: string;
 };
 
 export function PortfolioNavbar({
     homeUrl,
     projectsUrl,
-        stackUrl,
-        processUrl,
-        contactUrl,
-        resumeUrl,
+    stackUrl,
+    processUrl,
+    contactUrl,
+    resumeUrl,
     activeItem = 'home',
 }: PortfolioNavbarProps) {
     const projectsLink = projectsUrl ?? `${homeUrl}#projects`;
+    const stackLink = stackUrl ?? `${homeUrl}#stack`;
+    const processLink = processUrl ?? `${homeUrl}#process`;
+    const contactLink = contactUrl ?? `${homeUrl}#contact`;
+    const resumeLink = resumeUrl ?? `${homeUrl}#resume`;
 
     const navItems: PortfolioNavItem[] = [
         { label: 'Home', href: homeUrl, key: 'home' },
         { label: 'Projects', href: projectsLink, key: 'projects' },
-            { label: 'Stack', href: stackUrl ?? `${homeUrl}#stack`, key: 'stack' },
-            { label: 'Process', href: processUrl ?? `${homeUrl}#process`, key: 'process' },
-            { label: 'Contact', href: contactUrl ?? `${homeUrl}#contact`, key: 'contact' },
-            { label: 'Resume', href: resumeUrl ?? `${homeUrl}#resume`, key: 'resume' },
+        { label: 'Stack', href: stackLink, key: 'stack' },
+        { label: 'Process', href: processLink, key: 'process' },
+        { label: 'Contact', href: contactLink, key: 'contact' },
+        { label: 'Resume', href: resumeLink, key: 'resume' },
     ];
 
     return (
@@ -79,19 +83,12 @@ export function PortfolioNavbar({
                     ))}
                 </div>
 
-                <a
-                    href={`${homeUrl}#contact`}
-                        href={contactUrl ?? `${homeUrl}#contact`}
+                <Link
+                    href={contactLink}
                     className="rounded-lg bg-linear-to-r from-primary to-primary-container px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 ease-out hover:scale-95"
                 >
                     Connect
-                </a>
-                    <a
-                        href={contactUrl ?? `${homeUrl}#contact`}
-                        className="rounded-lg bg-linear-to-r from-primary to-primary-container px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 ease-out hover:scale-95"
-                    >
-                        Connect
-                    </a>
+                </Link>
             </nav>
         </header>
     );
