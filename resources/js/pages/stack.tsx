@@ -62,19 +62,28 @@ export default function Stack() {
                             </div>
                             <div className="flex flex-wrap gap-12 mt-12">
                                 <div className="flex flex-col gap-2">
-                                    <span className="font-label text-sm text-primary">01. Python</span>
+                                    <div className="flex items-center gap-2">
+                                        <i className="devicon-python-plain colored text-xl"></i>
+                                        <span className="font-label text-sm text-primary">01. Python</span>
+                                    </div>
                                     <div className="h-0.5 w-48 bg-surface-dim overflow-hidden">
                                         <div className="h-full bg-primary w-[95%]"></div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <span className="font-label text-sm text-primary">02. JavaScript</span>
+                                    <div className="flex items-center gap-2">
+                                        <i className="devicon-javascript-plain colored text-xl"></i>
+                                        <span className="font-label text-sm text-primary">02. JavaScript</span>
+                                    </div>
                                     <div className="h-0.5 w-48 bg-surface-dim overflow-hidden">
                                         <div className="h-full bg-primary w-[90%]"></div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <span className="font-label text-sm text-primary">03. PHP</span>
+                                    <div className="flex items-center gap-2">
+                                        <i className="devicon-php-plain colored text-xl"></i>
+                                        <span className="font-label text-sm text-primary">03. PHP</span>
+                                    </div>
                                     <div className="h-0.5 w-48 bg-surface-dim overflow-hidden">
                                         <div className="h-full bg-primary w-[85%]"></div>
                                     </div>
@@ -85,7 +94,7 @@ export default function Stack() {
                             <span className="material-symbols-outlined text-5xl mb-6">terminal</span>
                             <h3 className="text-2xl font-display font-bold mb-4">The Artisan Approach</h3>
                             <p className="font-light opacity-80 leading-relaxed">
-                                I treat code as a craft, prioritizing readability, performance, and long-term maintainability.
+                                Every tool is chosen to serve the project, not personal preference. The right stack is the one that best solves the client's problem.
                             </p>
                         </div>
                     </div>
@@ -102,19 +111,19 @@ export default function Stack() {
                             <h3 className="text-2xl font-display font-bold mb-8 tracking-tight">Frontend Engineering</h3>
                             <ul className="space-y-4 font-label text-on-surface/60">
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-react-original colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">React / Next.js</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-vuejs-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">Vue.js</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-tailwindcss-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">Tailwind CSS</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-framermotion-plain text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">Framer Motion</span>
                                 </li>
                             </ul>
@@ -128,19 +137,19 @@ export default function Stack() {
                             <h3 className="text-2xl font-display font-bold mb-8 tracking-tight">Backend & Mobile</h3>
                             <ul className="space-y-4 font-label text-on-surface/60">
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-laravel-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">Laravel (Eloquent/API)</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-fastapi-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">FastAPI / Node.js</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-postgresql-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">SQL / NoSQL Systems</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-react-original colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">React Native / Expo</span>
                                 </li>
                             </ul>
@@ -154,19 +163,19 @@ export default function Stack() {
                             <h3 className="text-2xl font-display font-bold mb-8 tracking-tight">AI & Data Science</h3>
                             <ul className="space-y-4 font-label text-on-surface/60">
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-opencv-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">Computer Vision</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-opencv-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">OpenCV Integration</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-python-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">LLM Fine-tuning</span>
                                 </li>
                                 <li className="flex items-center gap-4 group cursor-default">
-                                    <span className="w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                    <i className="devicon-pytorch-plain colored text-xl opacity-50 group-hover:opacity-100 transition-opacity shrink-0"></i>
                                     <span className="group-hover:text-on-surface transition-colors">PyTorch / TensorFlow</span>
                                 </li>
                             </ul>
