@@ -40,10 +40,10 @@ export default function Process() {
                     {/* Step 01 */}
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
                         <div className="md:col-span-5 relative">
-                            <div className="font-label text-[10rem] font-bold text-surface-container-highest leading-none select-none absolute -top-12 -left-8 -z-10">
+                            <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
                                 01
                             </div>
-                            <div className="pt-8">
+                            <div className="relative z-10 pt-8">
                                 <h2 className="font-display text-3xl font-bold mb-6">Discovery & Architecture</h2>
                                 <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">
                                     Before a single line of code is written, I dive deep into the problem space. We define technical constraints, scalability requirements, and the fundamental data architecture that will support the system's growth.
@@ -89,10 +89,10 @@ export default function Process() {
                             </div>
                         </div>
                         <div className="md:col-span-5 order-1 md:order-2 relative md:pl-12">
-                            <div className="font-label text-[10rem] font-bold text-surface-container-highest leading-none select-none absolute -top-12 -right-8 -z-10 md:right-0">
+                            <div className="pointer-events-none absolute -top-10 -right-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:right-0 md:text-[10rem]">
                                 02
                             </div>
-                            <div className="pt-8">
+                            <div className="relative z-10 pt-8">
                                 <h2 className="font-display text-3xl font-bold mb-6">Design & Prototyping</h2>
                                 <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">
                                     Utility meets aesthetic. I create high-fidelity prototypes that mirror the final performance. The focus is on a seamless developer experience and an intuitive user interface that feels native to the brand's identity.
@@ -118,37 +118,53 @@ export default function Process() {
                     </div>
 
                     {/* Step 03 */}
-                    <div className="bg-surface-container-low rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
-                        <div className="max-w-4xl mx-auto relative z-10">
-                            <div className="font-label text-xs uppercase tracking-widest text-primary font-bold mb-6 flex items-center gap-4">
-                                <span>03 Phase</span>
-                                <div className="h-px flex-grow bg-outline-variant/30"></div>
+                    <div className="relative p-12 md:p-20">
+                        <div className="max-w-4xl mx-auto relative">
+                            <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
+                                03
                             </div>
-                            <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">Engineering & Implementation</h2>
-                            <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">
-                                This is where precision meets production. I leverage modern frameworks to build modular, maintainable, and lightning-fast codebases. Clean code is not just a standard—it's a requirement.
-                            </p>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                <div className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm">
-                                    <span className="material-symbols-outlined text-primary mb-4">terminal</span>
-                                    <h5 className="font-display font-bold mb-2">Clean Stack</h5>
-                                    <p className="text-sm text-on-surface/60">
-                                        React, Next.js, and TypeScript for robust front-end systems.
-                                    </p>
-                                </div>
-                                <div className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm">
-                                    <span className="material-symbols-outlined text-primary mb-4">database</span>
-                                    <h5 className="font-display font-bold mb-2">Back-end Excellence</h5>
-                                    <p className="text-sm text-on-surface/60">
-                                        Node.js and PostgreSQL optimized for high concurrent loads.
-                                    </p>
-                                </div>
-                                <div className="bg-surface-container-lowest p-8 rounded-2xl shadow-sm">
-                                    <span className="material-symbols-outlined text-primary mb-4">speed</span>
-                                    <h5 className="font-display font-bold mb-2">Performance First</h5>
-                                    <p className="text-sm text-on-surface/60">
-                                        Edge computing and intelligent caching layers for sub-100ms response.
-                                    </p>
+                            <div className="relative z-10 pt-8">
+                                <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">Engineering & Implementation</h2>
+                                <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">
+                                    This is where precision meets production. I leverage modern frameworks to build modular, maintainable, and lightning-fast codebases. Clean code is not just a standard—it's a requirement.
+                                </p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    <div className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
+                                        <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">brush</span>
+                                        <h5 className="font-display font-bold mb-4">Frontend</h5>
+                                        <ul className="space-y-2 text-sm text-on-surface/60">
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">React</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Next.js</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">TypeScript</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">JavaScript</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Tailwind CSS</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">CSS Modules</li>
+                                        </ul>
+                                    </div>
+                                    <div className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
+                                        <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">database</span>
+                                        <h5 className="font-display font-bold mb-4">Backend</h5>
+                                        <ul className="space-y-2 text-sm text-on-surface/60">
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Laravel</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Node.js</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">PostgreSQL</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">MySQL</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">REST APIs</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">GraphQL</li>
+                                        </ul>
+                                    </div>
+                                    <div className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
+                                        <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">speed</span>
+                                        <h5 className="font-display font-bold mb-4">Performance</h5>
+                                        <ul className="space-y-2 text-sm text-on-surface/60">
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Edge rendering</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">CDN-first delivery</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Redis caching</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Query optimization</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Queue workers</li>
+                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Background jobs</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -157,10 +173,10 @@ export default function Process() {
                     {/* Step 04 */}
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                         <div className="md:col-span-5 relative">
-                            <div className="font-label text-[10rem] font-bold text-surface-container-highest leading-none select-none absolute -top-12 -left-8 -z-10">
+                            <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
                                 04
                             </div>
-                            <div className="pt-8">
+                            <div className="relative z-10 pt-8">
                                 <h2 className="font-display text-3xl font-bold mb-6">Testing & QA</h2>
                                 <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">
                                     Zero-compromise quality assurance. I implement automated testing suites including Unit, Integration, and E2E tests to ensure every deploy is as stable as the last.
@@ -190,7 +206,7 @@ export default function Process() {
 
                     {/* Step 05 */}
                     <div className="max-w-4xl mx-auto text-center space-y-8 relative">
-                        <div className="font-label text-[8rem] font-bold text-surface-container-highest leading-none opacity-40">
+                        <div className="pointer-events-none font-label text-[6rem] leading-none font-bold text-primary/20 select-none md:text-[8rem]">
                             05
                         </div>
                         <h2 className="font-display text-4xl font-extrabold -mt-16">Deployment & Scale</h2>
