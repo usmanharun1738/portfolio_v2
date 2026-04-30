@@ -19,6 +19,21 @@ type Capability = {
     icon: string;
 };
 
+type Outcome = {
+    label: string;
+    before: string;
+    after: string;
+    improvement: string;
+};
+
+type Testimonial = {
+    quote: string;
+    name: string;
+    role: string;
+    company: string;
+    icon?: string;
+};
+
 type CaseStudyTemplateProps = {
     pageTitle: string;
     activeItem?: 'projects' | 'home' | 'stack' | 'process' | 'contact' | 'resume';
@@ -32,6 +47,8 @@ type CaseStudyTemplateProps = {
     metrics: Metric[];
     challenge: ChallengeSolution;
     solution: ChallengeSolution;
+    outcomes?: Outcome[];
+    testimonials?: Testimonial[];
     capabilities: Capability[];
     galleryImageUrls: string[];
     backToProjectsUrl: string;
@@ -50,6 +67,8 @@ export function CaseStudyTemplate({
     metrics,
     challenge,
     solution,
+    outcomes,
+    testimonials,
     capabilities,
     galleryImageUrls,
     backToProjectsUrl,
@@ -187,10 +206,87 @@ export function CaseStudyTemplate({
                         </div>
                     </section>
 
+                    {outcomes && outcomes.length > 0 && (
+                        <section className="px-8 py-32">
+                            <div className="mx-auto max-w-7xl">
+                                <h2 className="mb-16 font-mono text-xs font-bold tracking-[0.4em] text-primary uppercase">
+                                    03. Measurable Outcomes
+                                </h2>
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                    {outcomes.map((outcome) => (
+                                        <div
+                                            key={outcome.label}
+                                            className="rounded-xl border border-outline-variant bg-white p-8 shadow-[0_8px_30px_rgba(21,28,39,0.08)]"
+                                        >
+                                            <h3 className="mb-8 text-lg font-bold text-on-surface">{outcome.label}</h3>
+                                            <div className="space-y-6">
+                                                <div>
+                                                    <div className="font-mono text-xs font-semibold tracking-widest text-secondary uppercase">
+                                                        Before
+                                                    </div>
+                                                    <div className="mt-2 text-2xl font-bold text-secondary">{outcome.before}</div>
+                                                </div>
+                                                <div className="flex items-center justify-center">
+                                                    <span className="material-symbols-outlined text-primary">arrow_downward</span>
+                                                </div>
+                                                <div>
+                                                    <div className="font-mono text-xs font-semibold tracking-widest text-secondary uppercase">
+                                                        After
+                                                    </div>
+                                                    <div className="mt-2 text-2xl font-bold text-on-surface">{outcome.after}</div>
+                                                </div>
+                                                <div className="rounded-lg bg-primary/10 px-4 py-3">
+                                                    <div className="font-mono text-xs font-semibold tracking-widest text-primary uppercase">
+                                                        Improvement
+                                                    </div>
+                                                    <div className="mt-2 text-2xl font-bold text-primary">{outcome.improvement}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {testimonials && testimonials.length > 0 && (
+                        <section className="bg-white px-8 py-32">
+                            <div className="mx-auto max-w-7xl">
+                                <h2 className="mb-4 font-mono text-xs font-bold tracking-[0.4em] text-primary uppercase">
+                                    Social Proof
+                                </h2>
+                                <p className="mb-16 max-w-2xl text-xl text-secondary">What stakeholders and team members are saying about the impact</p>
+                                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                                    {testimonials.map((testimonial) => (
+                                        <div
+                                            key={`${testimonial.name}-${testimonial.company}`}
+                                            className="relative rounded-xl border border-outline-variant bg-surface-container-low p-10 shadow-[0_8px_30px_rgba(21,28,39,0.08)] transition-all hover:-translate-y-0.5"
+                                        >
+                                            <div className="mb-6 flex items-start justify-between">
+                                                <span className="material-symbols-outlined text-4xl text-primary/20">format_quote</span>
+                                                {testimonial.icon && (
+                                                    <span className="material-symbols-outlined text-2xl text-primary">{testimonial.icon}</span>
+                                                )}
+                                            </div>
+                                            <blockquote className="mb-8 text-lg leading-relaxed text-on-surface italic">
+                                                "{testimonial.quote}"
+                                            </blockquote>
+                                            <div className="border-t border-outline-variant/30 pt-6">
+                                                <div className="font-bold text-on-surface">{testimonial.name}</div>
+                                                <div className="text-sm text-secondary">{testimonial.role}</div>
+                                                <div className="font-mono text-xs tracking-wider text-tertiary uppercase">{testimonial.company}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
                     <section className="px-8 py-32">
                         <div className="mx-auto max-w-7xl">
                             <h2 className="mb-16 text-center font-mono text-xs font-bold tracking-[0.4em] text-primary uppercase">
-                                02. Core Capabilities
+                                05. Core Capabilities
                             </h2>
                             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                                 {capabilities.map((feature) => (

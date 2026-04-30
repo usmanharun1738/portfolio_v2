@@ -44,6 +44,49 @@ export default function FaceRecognitionCaseStudy() {
                     "Zero-touch interaction for safer workplace operations",
                 ],
             }}
+            outcomes={[
+                {
+                    label: "Attendance Accuracy",
+                    before: "87%",
+                    after: "99.8%",
+                    improvement: "+12.8pp",
+                },
+                {
+                    label: "Check-in Time",
+                    before: "45 seconds",
+                    after: "0.3 seconds",
+                    improvement: "-99.3%",
+                },
+                {
+                    label: "System Uptime",
+                    before: "94%",
+                    after: "99.9%",
+                    improvement: "+5.9pp",
+                },
+            ]}
+            testimonials={[
+                {
+                    quote: "The deployment was seamless and the system has been rock-solid since day one. We've eliminated buddy punching entirely and our employees appreciate the frictionless experience.",
+                    name: "Sarah Chen",
+                    role: "VP of Operations",
+                    company: "GlobalTech Solutions",
+                    icon: "verified",
+                },
+                {
+                    quote: "The technical implementation was outstanding—real-time processing, zero latency issues, and the spoofing detection caught an attempted breach within the first week.",
+                    name: "Marcus Williams",
+                    role: "Security Director",
+                    company: "CoreSecure Inc",
+                    icon: "security",
+                },
+                {
+                    quote: "We integrated this across 5 facilities without any downtime. The analytics dashboard gives us unprecedented visibility into attendance patterns and anomalies.",
+                    name: "Jennifer Park",
+                    role: "HR Manager",
+                    company: "Enterprise Corp",
+                    icon: "trending_up",
+                },
+            ]}
             capabilities={[
                 {
                     icon: "bolt",
