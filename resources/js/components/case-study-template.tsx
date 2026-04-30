@@ -1,6 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { useState } from 'react';
-import type { FormEvent } from 'react';
+
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { home } from '@/routes';
 
@@ -58,8 +57,6 @@ type CaseStudyTemplateProps = {
     outcomes?: Outcome[];
     testimonials?: Testimonial[];
     projectCtas: ProjectCtaLinks;
-    quickContactEmail?: string;
-    bookCallUrl?: string;
     capabilities: Capability[];
     galleryImageUrls: string[];
     backToProjectsUrl: string;
@@ -81,25 +78,10 @@ export function CaseStudyTemplate({
     outcomes,
     testimonials,
     projectCtas,
-    quickContactEmail = 'hello@usmanharuna.pro',
-    bookCallUrl = 'https://calendly.com/',
     capabilities,
     galleryImageUrls,
     backToProjectsUrl,
 }: CaseStudyTemplateProps) {
-    const [quickContactName, setQuickContactName] = useState('');
-    const [quickContactSender, setQuickContactSender] = useState('');
-    const [quickContactMessage, setQuickContactMessage] = useState('');
-
-    const handleQuickContactSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        const subject = `[Portfolio Inquiry] ${pageTitle}`;
-        const body = `Name: ${quickContactName || 'N/A'}\nEmail: ${quickContactSender || 'N/A'}\n\nMessage:\n${quickContactMessage || 'Hi, I would like to discuss this project.'}`;
-
-        window.location.href = `mailto:${quickContactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    };
-
     return (
         <>
             <Head title={pageTitle}>
@@ -423,53 +405,7 @@ export function CaseStudyTemplate({
                     </div>
                 </footer>
 
-                <aside className="fixed right-4 bottom-4 z-50 w-[min(92vw,380px)] rounded-xl border border-outline-variant bg-white p-4 shadow-2xl shadow-on-surface/10">
-                    <p className="font-mono text-[10px] tracking-[0.2em] text-primary uppercase">Quick Contact</p>
-                    <h3 className="mt-2 text-lg font-bold text-on-surface">Start a project conversation</h3>
-                    <p className="mt-1 text-sm text-secondary">Replies within 24 hours.</p>
 
-                    <form className="mt-4 space-y-2" onSubmit={handleQuickContactSubmit}>
-                        <input
-                            value={quickContactName}
-                            onChange={(event) => setQuickContactName(event.target.value)}
-                            type="text"
-                            placeholder="Your name"
-                            className="w-full rounded-md border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface"
-                        />
-                        <input
-                            value={quickContactSender}
-                            onChange={(event) => setQuickContactSender(event.target.value)}
-                            type="email"
-                            placeholder="Your email"
-                            className="w-full rounded-md border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface"
-                            required
-                        />
-                        <textarea
-                            value={quickContactMessage}
-                            onChange={(event) => setQuickContactMessage(event.target.value)}
-                            rows={3}
-                            placeholder="Quick project brief"
-                            className="w-full resize-none rounded-md border border-outline-variant bg-surface px-3 py-2 text-sm text-on-surface"
-                            required
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                            <button
-                                type="submit"
-                                className="rounded-md bg-primary px-3 py-2 text-xs font-bold tracking-wider text-white uppercase"
-                            >
-                                Send Message
-                            </button>
-                            <a
-                                href={bookCallUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center rounded-md border border-outline-variant bg-white px-3 py-2 text-xs font-bold tracking-wider text-on-surface uppercase"
-                            >
-                                Book a Call
-                            </a>
-                        </div>
-                    </form>
-                </aside>
             </div>
         </>
     );

@@ -92,8 +92,6 @@ export default function FaceRecognitionCaseStudy() {
                 githubUrl: 'https://github.com/usmanharuna/face-recognition-system',
                 technicalBreakdownUrl: '#overview',
             }}
-            bookCallUrl="https://calendly.com/usman-haruna/discovery-call"
-            quickContactEmail="hello@usmanharuna.pro"
             capabilities={[
                 {
                     icon: "bolt",

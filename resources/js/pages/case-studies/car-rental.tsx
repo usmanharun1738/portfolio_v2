@@ -92,8 +92,6 @@ export default function CarRentalCaseStudy() {
                 githubUrl: 'https://github.com/usmanharuna/car-rental-management',
                 technicalBreakdownUrl: '#overview',
             }}
-            bookCallUrl="https://calendly.com/usman-haruna/discovery-call"
-            quickContactEmail="hello@usmanharuna.pro"
             capabilities={[
                 {
                     icon: "calendar_today",
