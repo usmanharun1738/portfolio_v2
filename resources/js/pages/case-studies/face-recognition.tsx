@@ -87,6 +87,13 @@ export default function FaceRecognitionCaseStudy() {
                     icon: "trending_up",
                 },
             ]}
+            projectCtas={{
+                videoDemoUrl: 'https://www.youtube.com/watch?v=4Wf79f5A5vQ',
+                githubUrl: 'https://github.com/usmanharuna/face-recognition-system',
+                technicalBreakdownUrl: '#overview',
+            }}
+            bookCallUrl="https://calendly.com/usman-haruna/discovery-call"
+            quickContactEmail="hello@usmanharuna.pro"
             capabilities={[
                 {
                     icon: "bolt",

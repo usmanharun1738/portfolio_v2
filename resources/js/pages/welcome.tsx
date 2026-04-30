@@ -5,6 +5,51 @@ import { home } from '@/routes';
 
 const heroImageUrl = '/hero-img.png';
 
+const testimonials = [
+    {
+        quote: "The deployment was seamless and the system has been rock-solid since day one. We've eliminated buddy punching entirely and our employees appreciate the frictionless experience.",
+        name: 'Sarah Chen',
+        role: 'VP of Operations',
+        company: 'GlobalTech Solutions',
+        icon: 'verified',
+    },
+    {
+        quote: 'The technical implementation was outstanding-real-time processing, zero latency issues, and the spoofing detection caught an attempted breach within the first week.',
+        name: 'Marcus Williams',
+        role: 'Security Director',
+        company: 'CoreSecure Inc',
+        icon: 'security',
+    },
+    {
+        quote: 'We integrated this across 5 facilities without any downtime. The analytics dashboard gives us unprecedented visibility into attendance patterns and anomalies.',
+        name: 'Jennifer Park',
+        role: 'HR Manager',
+        company: 'Enterprise Corp',
+        icon: 'trending_up',
+    },
+    {
+        quote: 'The platform transformed how we manage bookings. What used to take 8 minutes is now 45 seconds, and customers love the instant confirmation. Revenue jumped immediately after launch.',
+        name: 'David Rodriguez',
+        role: 'CEO',
+        company: 'FleetDrive Rentals',
+        icon: 'business',
+    },
+    {
+        quote: 'The Stripe integration is bulletproof. We went from 3.2% payment failures to 0.18%-that alone saves us thousands monthly. The developer anticipated every edge case.',
+        name: 'Lisa Thompson',
+        role: 'Finance Director',
+        company: 'MobilityPlus',
+        icon: 'payments',
+    },
+    {
+        quote: 'Our fleet is spread across 12 cities and the real-time sync never misses a beat. The Redis caching architecture ensures availability queries complete in milliseconds, even during peak hours.',
+        name: 'Ahmed Hassan',
+        role: 'Technical Lead',
+        company: 'CarHub Network',
+        icon: 'speed',
+    },
+];
+
 export default function Welcome() {
     useEffect(() => {
         document.documentElement.classList.remove('dark');
@@ -359,6 +404,46 @@ export default function Welcome() {
                         </div>
 
                         <div className="absolute -top-64 -right-64 h-150 w-150 rounded-full border border-primary/20 opacity-20" />
+                    </section>
+
+                    <section id="social-proof" className="bg-surface py-32">
+                        <div className="mx-auto w-full max-w-7xl px-6">
+                            <div className="mb-16">
+                                <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">
+                                    Social Proof
+                                </p>
+                                <h2 className="font-display mb-4 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">
+                                    Trusted by clients and teams.
+                                </h2>
+                                <p className="max-w-3xl text-lg text-on-surface-variant">
+                                    Feedback from stakeholders across operations, security, finance, and engineering.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                {testimonials.map((testimonial) => (
+                                    <article
+                                        key={`${testimonial.name}-${testimonial.company}`}
+                                        className="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-8 shadow-sm"
+                                    >
+                                        <div className="mb-6 flex items-start justify-between">
+                                            <span className="material-symbols-outlined text-3xl text-primary/30">format_quote</span>
+                                            <span className="material-symbols-outlined text-xl text-primary">{testimonial.icon}</span>
+                                        </div>
+                                        <blockquote className="mb-8 text-on-surface">
+                                            {testimonial.quote}
+                                        </blockquote>
+                                        <div className="border-t border-outline-variant/30 pt-5">
+                                            <div className="font-display text-lg font-bold text-on-surface">{testimonial.name}</div>
+                                            <div className="text-sm text-on-surface-variant">{testimonial.role}</div>
+                                            <div className="mt-1 font-mono text-[10px] tracking-widest text-primary uppercase">
+                                                {testimonial.company}
+                                            </div>
+                                        </div>
+                                    </article>
+                                ))}
+                            </div>
+                        </div>
                     </section>
 
                     <section id="contact" className="bg-background py-32">
