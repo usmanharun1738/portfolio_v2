@@ -1,6 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
-import {  useState } from 'react';
-import type {FormEvent} from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { home } from '@/routes';
 

@@ -76,10 +76,10 @@ export default function Welcome() {
                 <PortfolioNavbar
                     homeUrl={home.url()}
                     projectsUrl="/projects"
-                        stackUrl="/stack"
-                        processUrl="/process"
-                        contactUrl="/contact"
-                        resumeUrl="/resume"
+                    stackUrl="/stack"
+                    processUrl="/process"
+                    contactUrl="/contact"
+                    resumeUrl="/resume"
                     activeItem="home"
                 />
 
