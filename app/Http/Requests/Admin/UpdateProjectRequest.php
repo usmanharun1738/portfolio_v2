@@ -24,7 +24,7 @@ class UpdateProjectRequest extends FormRequest
 
         return [
             'title' => ['sometimes', 'required', 'string', 'max:255'],
-            'slug' => ['sometimes', 'nullable', 'string', 'max:255', 'unique:projects,slug,'.$projectId],
+            'slug' => ['sometimes', 'nullable', 'string', 'max:255', 'unique:projects,slug,' . $projectId],
             'display_number' => ['sometimes', 'required', 'string', 'max:10'],
             'category' => ['sometimes', 'required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],

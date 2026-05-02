@@ -92,11 +92,10 @@ function SettingRow({ setting }: { setting: SiteSetting }) {
             <button
                 onClick={save}
                 disabled={saving}
-                className={`mt-6 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-                    saved
+                className={`mt-6 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${saved
                         ? 'bg-green-100 text-green-700'
                         : 'bg-primary text-on-primary hover:opacity-90'
-                } disabled:opacity-60`}
+                    } disabled:opacity-60`}
             >
                 {saved ? 'Saved!' : saving ? 'Saving…' : 'Save'}
             </button>

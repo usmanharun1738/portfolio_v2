@@ -369,13 +369,13 @@ function ContactSection({ content }: { content: ContactContent }) {
 function SectionRenderer({ section, featuredProjects }: { section: Section; featuredProjects: FeaturedProject[] }) {
     const c = section.content;
     switch (section.type) {
-        case 'hero':         return <HeroSection content={c as unknown as HeroContent} />;
-        case 'projects':     return <ProjectsSection content={c as unknown as ProjectsContent} featuredProjects={featuredProjects} />;
-        case 'stack':        return <StackSection content={c as unknown as StackContent} />;
-        case 'process':      return <ProcessSection content={c as unknown as ProcessContent} />;
+        case 'hero': return <HeroSection content={c as unknown as HeroContent} />;
+        case 'projects': return <ProjectsSection content={c as unknown as ProjectsContent} featuredProjects={featuredProjects} />;
+        case 'stack': return <StackSection content={c as unknown as StackContent} />;
+        case 'process': return <ProcessSection content={c as unknown as ProcessContent} />;
         case 'testimonials': return <TestimonialsSection content={c as unknown as TestimonialsContent} />;
-        case 'contact':      return <ContactSection content={c as unknown as ContactContent} />;
-        default:             return null;
+        case 'contact': return <ContactSection content={c as unknown as ContactContent} />;
+        default: return null;
     }
 }
 

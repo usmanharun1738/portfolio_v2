@@ -62,22 +62,20 @@ export default function AdminProjectsIndex({ projects }: { projects: Project[] }
                                     <td className="px-4 py-3 text-on-surface-variant">{project.grid_span}</td>
                                     <td className="px-4 py-3">
                                         <span
-                                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                                                project.is_featured_on_home
+                                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${project.is_featured_on_home
                                                     ? 'bg-blue-100 text-blue-700'
                                                     : 'bg-surface-container text-on-surface-variant'
-                                            }`}
+                                                }`}
                                         >
                                             {project.is_featured_on_home ? 'Yes' : 'No'}
                                         </span>
                                     </td>
                                     <td className="px-4 py-3">
                                         <span
-                                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                                                project.is_visible
+                                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${project.is_visible
                                                     ? 'bg-green-100 text-green-700'
                                                     : 'bg-amber-100 text-amber-700'
-                                            }`}
+                                                }`}
                                         >
                                             {project.is_visible ? 'Visible' : 'Hidden'}
                                         </span>

@@ -139,11 +139,10 @@ export default function AdminPagesEdit({
                                 <div className="flex items-center gap-3">
                                     <button
                                         onClick={() => toggleSection(section)}
-                                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                                            section.is_enabled
+                                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${section.is_enabled
                                                 ? 'bg-green-100 text-green-700'
                                                 : 'bg-surface-container text-on-surface-variant'
-                                        }`}
+                                            }`}
                                     >
                                         {section.is_enabled ? 'Enabled' : 'Disabled'}
                                     </button>

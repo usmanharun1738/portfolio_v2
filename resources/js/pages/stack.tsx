@@ -238,12 +238,12 @@ function StackCtaSection({ content }: { content: StackCtaContent }) {
 function renderSection(section: Section) {
     const c = section.content;
     switch (section.type) {
-        case 'stack_hero':         return <StackHeroSection key={section.id} content={c as unknown as StackHeroContent} />;
-        case 'stack_languages':    return <StackLanguagesSection key={section.id} content={c as unknown as StackLanguagesContent} />;
-        case 'stack_skills':       return <StackSkillsSection key={section.id} content={c as unknown as StackSkillsContent} />;
+        case 'stack_hero': return <StackHeroSection key={section.id} content={c as unknown as StackHeroContent} />;
+        case 'stack_languages': return <StackLanguagesSection key={section.id} content={c as unknown as StackLanguagesContent} />;
+        case 'stack_skills': return <StackSkillsSection key={section.id} content={c as unknown as StackSkillsContent} />;
         case 'stack_certifications': return <StackCertificationsSection key={section.id} content={c as unknown as StackCertificationsContent} />;
-        case 'stack_cta':          return <StackCtaSection key={section.id} content={c as unknown as StackCtaContent} />;
-        default:                   return null;
+        case 'stack_cta': return <StackCtaSection key={section.id} content={c as unknown as StackCtaContent} />;
+        default: return null;
     }
 }
 
