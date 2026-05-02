@@ -82,6 +82,6 @@ class PageController extends Controller
                 ->with('error', 'No preview available for this page.');
         }
 
-        return redirect()->to(route($routeName).'?preview=1');
+        return redirect()->to(route($routeName) . '?preview=1');
     }
 }

@@ -14,7 +14,7 @@ class WelcomeController extends Controller
         $isPreview = auth()->check() && request()->boolean('preview');
         $page = Page::with('enabledSections')
             ->where('slug', 'home')
-            ->when(! $isPreview, fn ($q) => $q->where('status', 'published'))
+            ->when(! $isPreview, fn($q) => $q->where('status', 'published'))
             ->first();
         $featuredProjects = Project::featured()->orderBy('sort_order')->get();
 

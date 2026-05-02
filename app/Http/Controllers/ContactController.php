@@ -13,7 +13,7 @@ class ContactController extends Controller
         $isPreview = auth()->check() && request()->boolean('preview');
         $page = Page::with('enabledSections')
             ->where('slug', 'contact')
-            ->when(! $isPreview, fn ($q) => $q->where('status', 'published'))
+            ->when(! $isPreview, fn($q) => $q->where('status', 'published'))
             ->first();
 
         return Inertia::render('contact', [

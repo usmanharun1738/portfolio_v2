@@ -17,7 +17,7 @@ test('authenticated user can view media library', function () {
     $this->actingAs($user)
         ->get(route('admin.media.index'))
         ->assertOk()
-        ->assertInertia(fn (Assert $page) => $page->component('admin/media/index')->has('media'));
+        ->assertInertia(fn(Assert $page) => $page->component('admin/media/index')->has('media'));
 });
 
 test('authenticated user can upload an image', function () {

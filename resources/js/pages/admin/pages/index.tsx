@@ -50,13 +50,12 @@ export default function AdminPagesIndex({ pages }: { pages: Page[] }) {
                                     <td className="px-4 py-3 text-on-surface-variant">{page.sections_count}</td>
                                     <td className="px-4 py-3">
                                         <span
-                                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                                                page.status === 'published'
+                                            className={`rounded-full px-2 py-0.5 text-xs font-medium ${page.status === 'published'
                                                     ? 'bg-green-100 text-green-700'
                                                     : page.status === 'archived'
-                                                      ? 'bg-slate-100 text-slate-700'
-                                                      : 'bg-amber-100 text-amber-700'
-                                            }`}
+                                                        ? 'bg-slate-100 text-slate-700'
+                                                        : 'bg-amber-100 text-amber-700'
+                                                }`}
                                         >
                                             {page.status.charAt(0).toUpperCase() + page.status.slice(1)}
                                         </span>

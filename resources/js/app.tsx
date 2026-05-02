@@ -20,7 +20,7 @@ createInertiaApp({
             case name === 'process':
             case name === 'resume':
             case name.startsWith('case-studies/'):
-                 return PublicLayout;
+                return PublicLayout;
             case name.startsWith('auth/'):
                 return AuthLayout;
             case name.startsWith('settings/'):

@@ -13,7 +13,7 @@ class ResumeController extends Controller
         $isPreview = auth()->check() && request()->boolean('preview');
         $page = Page::with('enabledSections')
             ->where('slug', 'resume')
-            ->when(! $isPreview, fn ($q) => $q->where('status', 'published'))
+            ->when(! $isPreview, fn($q) => $q->where('status', 'published'))
             ->first();
 
         return Inertia::render('resume', [

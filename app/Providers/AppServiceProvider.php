@@ -30,12 +30,12 @@ class AppServiceProvider extends ServiceProvider
 
     protected function shareInertiaData(): void
     {
-        Inertia::share('flash', fn () => [
+        Inertia::share('flash', fn() => [
             'success' => session('success'),
             'error' => session('error'),
         ]);
 
-        Inertia::share('is_preview', fn () => auth()->check() && request()->boolean('preview'));
+        Inertia::share('is_preview', fn() => auth()->check() && request()->boolean('preview'));
     }
 
     /**
@@ -49,14 +49,15 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
+        Password::defaults(
+            fn(): ?Password => app()->isProduction()
+                ? Password::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null,
+                : null,
         );
     }
 }

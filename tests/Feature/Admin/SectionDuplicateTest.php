@@ -41,6 +41,6 @@ test('duplicate section sort order is higher than existing max', function () {
     $this->actingAs($user)
         ->post(route('admin.pages.sections.duplicate', [$page, $s1]));
 
-    $copy = PageSection::where('name', $s1->name.' (Copy)')->first();
+    $copy = PageSection::where('name', $s1->name . ' (Copy)')->first();
     expect($copy->sort_order)->toBe(6);
 });

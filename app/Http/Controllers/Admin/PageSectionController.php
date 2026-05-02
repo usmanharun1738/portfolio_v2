@@ -62,14 +62,14 @@ class PageSectionController extends Controller
     public function duplicate(Page $page, PageSection $section): RedirectResponse
     {
         $copy = $section->replicate();
-        $copy->name = $section->name.' (Copy)';
+        $copy->name = $section->name . ' (Copy)';
         $copy->sort_order = $page->sections()->max('sort_order') + 1;
-        $baseKey = $section->key.'_copy';
+        $baseKey = $section->key . '_copy';
         $key = $baseKey;
         $i = 2;
 
         while ($page->sections()->where('key', $key)->exists()) {
-            $key = $baseKey.'_'.$i++;
+            $key = $baseKey . '_' . $i++;
         }
 
         $copy->key = $key;

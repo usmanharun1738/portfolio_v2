@@ -29,7 +29,7 @@ class StoreSectionRequest extends FormRequest
                 'required',
                 'string',
                 'max:100',
-                Rule::unique('page_sections', 'key')->where(fn ($query) => $query->where('page_id', $pageId)),
+                Rule::unique('page_sections', 'key')->where(fn($query) => $query->where('page_id', $pageId)),
             ],
             'type' => ['required', 'string', 'in:hero,projects,stack,process,testimonials,contact,stack_hero,stack_languages,stack_skills,stack_certifications,stack_cta,process_hero,process_steps,process_philosophy,contact_hero,contact_info,resume_hero,resume_summary,resume_experience,resume_skills,resume_education,resume_certifications'],
             'name' => ['required', 'string', 'max:255'],

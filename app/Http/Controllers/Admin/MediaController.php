@@ -29,7 +29,7 @@ class MediaController extends Controller
 
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $filename = Str::uuid().'.'.strtolower($extension);
+        $filename = Str::uuid() . '.' . strtolower($extension);
         $path = $file->storeAs('media', $filename, 'public');
 
         Media::create([
