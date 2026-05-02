@@ -16,6 +16,7 @@ class StackPageSeeder extends Seeder
                 'title' => 'Stack',
                 'meta_title' => 'Technical Stack | Usman Haruna Portfolio',
                 'meta_description' => 'Precision engineering with Python, JavaScript, PHP, React, Laravel, and AI systems.',
+                'status' => 'published',
                 'is_published' => true,
             ],
         );

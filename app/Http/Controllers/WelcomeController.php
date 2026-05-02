@@ -11,7 +11,11 @@ class WelcomeController extends Controller
 {
     public function index(): Response
     {
-        $page = Page::with('enabledSections')->where('slug', 'home')->where('is_published', true)->first();
+        $isPreview = auth()->check() && request()->boolean('preview');
+        $page = Page::with('enabledSections')
+            ->where('slug', 'home')
+            ->when(! $isPreview, fn ($q) => $q->where('status', 'published'))
+            ->first();
         $featuredProjects = Project::featured()->orderBy('sort_order')->get();
 
         return Inertia::render('welcome', [

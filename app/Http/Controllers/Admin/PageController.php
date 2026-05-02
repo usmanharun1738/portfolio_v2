@@ -26,7 +26,10 @@ class PageController extends Controller
 
     public function store(StorePageRequest $request): RedirectResponse
     {
-        $page = Page::create($request->validated());
+        $data = $request->validated();
+        $data['is_published'] = ($data['status'] ?? 'draft') === 'published';
+
+        $page = Page::create($data);
 
         return redirect()->route('admin.pages.edit', $page)
             ->with('success', 'Page created.');
@@ -36,22 +39,49 @@ class PageController extends Controller
     {
         return Inertia::render('admin/pages/edit', [
             'page' => $page,
-            'sections' => $page->sections()->get(),
+            'sections' => $page->sections()->orderBy('sort_order')->get(),
         ]);
     }
 
     public function update(UpdatePageRequest $request, Page $page): RedirectResponse
     {
-        $page->update($request->validated());
+        $data = $request->validated();
+
+        if (array_key_exists('status', $data)) {
+            $data['is_published'] = $data['status'] === 'published';
+        }
+
+        $page->update($data);
 
         return back()->with('success', 'Page updated.');
     }
 
     public function destroy(Page $page): RedirectResponse
     {
-        $page->delete();
+        Page::query()->whereKey($page->id)->delete();
 
         return redirect()->route('admin.pages.index')
             ->with('success', 'Page deleted.');
+    }
+
+    public function preview(Page $page): RedirectResponse
+    {
+        $slugToRoute = [
+            'home' => 'home',
+            'stack' => 'stack',
+            'process' => 'process',
+            'contact' => 'contact',
+            'resume' => 'resume',
+            'projects' => 'projects.index',
+        ];
+
+        $routeName = $slugToRoute[$page->slug] ?? null;
+
+        if (! $routeName) {
+            return redirect()->route('admin.pages.edit', $page)
+                ->with('error', 'No preview available for this page.');
+        }
+
+        return redirect()->to(route($routeName).'?preview=1');
     }
 }

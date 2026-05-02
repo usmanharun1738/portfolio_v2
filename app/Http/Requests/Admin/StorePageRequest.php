@@ -25,6 +25,7 @@ class StorePageRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],
+            'status' => ['required', 'in:draft,published,archived'],
             'is_published' => ['boolean'],
         ];
     }

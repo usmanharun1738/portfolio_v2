@@ -16,6 +16,7 @@ class ContactPageSeeder extends Seeder
                 'title' => 'Contact',
                 'meta_title' => "Let's Talk | Usman Haruna Portfolio",
                 'meta_description' => 'Open for projects. Contact Usman Haruna for full-stack, mobile, and AI development.',
+                'status' => 'published',
                 'is_published' => true,
             ],
         );

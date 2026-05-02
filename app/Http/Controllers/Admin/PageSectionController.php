@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreSectionRequest;
 use App\Http\Requests\Admin\UpdateSectionRequest;
+use App\Models\Media;
 use App\Models\Page;
 use App\Models\PageSection;
 use Illuminate\Http\JsonResponse;
@@ -19,6 +20,7 @@ class PageSectionController extends Controller
     {
         return Inertia::render('admin/sections/create', [
             'page' => $page,
+            'media' => Media::latest()->limit(60)->get(),
         ]);
     }
 
@@ -38,6 +40,7 @@ class PageSectionController extends Controller
         return Inertia::render('admin/sections/edit', [
             'page' => $page,
             'section' => $section,
+            'media' => Media::latest()->limit(60)->get(),
         ]);
     }
 
@@ -56,10 +59,26 @@ class PageSectionController extends Controller
             ->with('success', 'Section deleted.');
     }
 
-    /**
-     * Bulk-reorder sections for a page.
-     * Expects: { order: [{ id: number, sort_order: number }] }
-     */
+    public function duplicate(Page $page, PageSection $section): RedirectResponse
+    {
+        $copy = $section->replicate();
+        $copy->name = $section->name.' (Copy)';
+        $copy->sort_order = $page->sections()->max('sort_order') + 1;
+        $baseKey = $section->key.'_copy';
+        $key = $baseKey;
+        $i = 2;
+
+        while ($page->sections()->where('key', $key)->exists()) {
+            $key = $baseKey.'_'.$i++;
+        }
+
+        $copy->key = $key;
+        $copy->save();
+
+        return redirect()->route('admin.pages.edit', $page)
+            ->with('success', 'Section duplicated.');
+    }
+
     public function reorder(Request $request, Page $page): JsonResponse
     {
         $validated = $request->validate([

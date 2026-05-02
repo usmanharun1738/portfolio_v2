@@ -1,4 +1,5 @@
 import { Head, useForm } from '@inertiajs/react';
+import { useState } from 'react';
 import admin from '@/routes/admin';
 import { dashboard } from '@/routes';
 
@@ -6,6 +7,12 @@ interface Page {
     id: number;
     slug: string;
     title: string;
+}
+
+interface MediaItem {
+    id: number;
+    original_name: string;
+    url: string;
 }
 
 const SECTION_TYPES = [
@@ -16,7 +23,10 @@ const SECTION_TYPES = [
     'resume_hero', 'resume_summary', 'resume_experience', 'resume_skills', 'resume_education', 'resume_certifications',
 ] as const;
 
-export default function AdminSectionsCreate({ page }: { page: Page }) {
+export default function AdminSectionsCreate({ page, media }: { page: Page; media: MediaItem[] }) {
+    const [showMediaPicker, setShowMediaPicker] = useState(false);
+    const [mediaKeyPath, setMediaKeyPath] = useState('image_url');
+
     const { data, setData, post, processing, errors } = useForm({
         key: '',
         type: 'hero' as string,
@@ -28,6 +38,43 @@ export default function AdminSectionsCreate({ page }: { page: Page }) {
     function submit(e: React.FormEvent) {
         e.preventDefault();
         post(admin.pages.sections.store(page).url);
+    }
+
+    function setNestedValue(target: Record<string, unknown>, path: string, value: string): Record<string, unknown> {
+        const cloned = structuredClone(target);
+        const segments = path.split('.').filter(Boolean);
+
+        if (segments.length === 0) {
+            return cloned;
+        }
+
+        let cursor: Record<string, unknown> = cloned;
+
+        for (let i = 0; i < segments.length - 1; i++) {
+            const key = segments[i];
+            const next = cursor[key];
+
+            if (typeof next !== 'object' || next === null || Array.isArray(next)) {
+                cursor[key] = {};
+            }
+
+            cursor = cursor[key] as Record<string, unknown>;
+        }
+
+        cursor[segments[segments.length - 1]] = value;
+
+        return cloned;
+    }
+
+    function insertMediaUrl(url: string) {
+        try {
+            const parsed = JSON.parse(data.content) as Record<string, unknown>;
+            const updated = setNestedValue(parsed, mediaKeyPath, url);
+            setData('content', JSON.stringify(updated, null, 2));
+            setShowMediaPicker(false);
+        } catch {
+            alert('Content JSON is invalid. Fix JSON before inserting media.');
+        }
     }
 
     return (
@@ -73,6 +120,32 @@ export default function AdminSectionsCreate({ page }: { page: Page }) {
                             className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </Field>
+                    <div className="rounded-lg border border-outline-variant bg-surface-container-low/40 p-3">
+                        <div className="mb-2 text-xs font-medium text-on-surface-variant">Insert Media URL into JSON</div>
+                        <div className="flex flex-wrap items-center gap-2">
+                            <input
+                                value={mediaKeyPath}
+                                onChange={(e) => setMediaKeyPath(e.target.value)}
+                                placeholder="Key path (e.g. image_url or button.icon_url)"
+                                className="min-w-72 flex-1 rounded-lg border border-outline-variant bg-surface px-3 py-2 font-mono text-xs"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowMediaPicker(true)}
+                                className="rounded-lg border border-outline-variant px-3 py-2 text-xs font-semibold hover:bg-surface-container"
+                            >
+                                Choose Media
+                            </button>
+                            <a
+                                href={admin.media.index.url()}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-primary underline-offset-2 hover:underline"
+                            >
+                                Open Library ↗
+                            </a>
+                        </div>
+                    </div>
                     <label className="flex items-center gap-2 text-sm">
                         <input
                             type="checkbox"
@@ -92,6 +165,40 @@ export default function AdminSectionsCreate({ page }: { page: Page }) {
                         </button>
                     </div>
                 </form>
+
+                {showMediaPicker && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+                        <div className="max-h-[80vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-surface p-5 shadow-2xl">
+                            <div className="mb-4 flex items-center justify-between">
+                                <h2 className="text-lg font-bold">Select Media</h2>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowMediaPicker(false)}
+                                    className="rounded-lg px-3 py-1 text-sm hover:bg-surface-container"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                            {media.length === 0 ? (
+                                <p className="py-8 text-center text-sm text-on-surface-variant">No media found. Upload files in Media Library.</p>
+                            ) : (
+                                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+                                    {media.map((item) => (
+                                        <button
+                                            key={item.id}
+                                            type="button"
+                                            onClick={() => insertMediaUrl(item.url)}
+                                            className="overflow-hidden rounded-lg border border-outline-variant bg-surface-container-low text-left transition hover:shadow-md"
+                                        >
+                                            <img src={item.url} alt={item.original_name} className="h-28 w-full object-cover" />
+                                            <p className="truncate px-2 py-2 text-xs" title={item.original_name}>{item.original_name}</p>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

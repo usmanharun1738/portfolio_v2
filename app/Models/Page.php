@@ -2,22 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'slug',
         'title',
         'meta_title',
         'meta_description',
+        'status',
         'is_published',
     ];
 
     protected function casts(): array
     {
         return [
+            'status' => 'string',
             'is_published' => 'boolean',
         ];
     }
@@ -36,6 +41,9 @@ class Page extends Model
 
     public static function findBySlug(string $slug): ?static
     {
-        return static::where('slug', $slug)->where('is_published', true)->first();
+        return static::query()
+            ->where('slug', $slug)
+            ->where('status', 'published')
+            ->first();
     }
 }

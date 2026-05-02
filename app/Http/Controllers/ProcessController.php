@@ -10,7 +10,11 @@ class ProcessController extends Controller
 {
     public function index(): Response
     {
-        $page = Page::with('enabledSections')->where('slug', 'process')->where('is_published', true)->first();
+        $isPreview = auth()->check() && request()->boolean('preview');
+        $page = Page::with('enabledSections')
+            ->where('slug', 'process')
+            ->when(! $isPreview, fn ($q) => $q->where('status', 'published'))
+            ->first();
 
         return Inertia::render('process', [
             'page' => $page,

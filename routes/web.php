@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PageSectionController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
@@ -38,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Pages
         Route::resource('pages', PageController::class)
             ->except(['show']);
+        Route::get('pages/{page}/preview', [PageController::class, 'preview'])->name('pages.preview');
 
         // Sections (nested under pages)
         Route::prefix('pages/{page}/sections')->name('pages.sections.')->group(function () {
@@ -47,13 +49,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::patch('{section}', [PageSectionController::class, 'update'])->name('update');
             Route::delete('{section}', [PageSectionController::class, 'destroy'])->name('destroy');
             Route::post('reorder', [PageSectionController::class, 'reorder'])->name('reorder');
+            Route::post('{section}/duplicate', [PageSectionController::class, 'duplicate'])->name('duplicate');
         });
 
         // Site settings
         Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
         Route::patch('settings/{siteSetting}', [SiteSettingController::class, 'update'])->name('settings.update');
         Route::post('settings/bulk', [SiteSettingController::class, 'bulkUpdate'])->name('settings.bulk-update');
+
+        // Media library
+        Route::get('media', [MediaController::class, 'index'])->name('media.index');
+        Route::post('media', [MediaController::class, 'store'])->name('media.store');
+        Route::delete('media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
     });
 });
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';

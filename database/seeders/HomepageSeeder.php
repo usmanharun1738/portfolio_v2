@@ -16,6 +16,7 @@ class HomepageSeeder extends Seeder
                 'title' => 'Home',
                 'meta_title' => 'ARTISAN | Usman Haruna Portfolio',
                 'meta_description' => 'Precision Web & App Engineering — Crafting high-performance digital ecosystems.',
+                'status' => 'published',
                 'is_published' => true,
             ],
         );

@@ -14,8 +14,9 @@ class ProcessPageSeeder extends Seeder
             ['slug' => 'process'],
             [
                 'title' => 'Process',
-                'meta_title' => 'How I Work | Usman Haruna Portfolio',
+                'meta_title' => 'Process | Usman Haruna Portfolio',
                 'meta_description' => 'My engineering methodology: Discovery, Design, Implementation, Testing & Deployment.',
+                'status' => 'published',
                 'is_published' => true,
             ],
         );

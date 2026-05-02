@@ -16,6 +16,7 @@ class ResumePageSeeder extends Seeder
                 'title' => 'Resume',
                 'meta_title' => 'Resume | Usman Haruna Portfolio',
                 'meta_description' => 'Full-stack developer & AI enthusiast. Available for new opportunities.',
+                'status' => 'published',
                 'is_published' => true,
             ],
         );
