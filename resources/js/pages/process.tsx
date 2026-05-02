@@ -1,16 +1,270 @@
+import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { PortfolioNavbar } from '@/components/portfolio-navbar';
 import { home } from '@/routes';
 
-export default function Process() {
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface PageData {
+    id: number;
+    slug: string;
+    title: string;
+    meta_title: string | null;
+    meta_description: string | null;
+    is_published: boolean;
+}
+
+interface Section {
+    id: number;
+    key: string;
+    type: string;
+    name: string;
+    content: Record<string, unknown>;
+    sort_order: number;
+    is_enabled: boolean;
+}
+
+// ─── Content shapes ───────────────────────────────────────────────────────────
+
+interface ProcessHeroContent {
+    eyebrow: string;
+    heading: string;
+    bio: string;
+}
+
+interface TechColumn {
+    icon: string;
+    title: string;
+    items: string[];
+}
+
+interface StatCard {
+    icon: string;
+    title: string;
+    body: string;
+}
+
+interface DeployTech {
+    name: string;
+    label: string;
+}
+
+interface ProcessStep {
+    number: string;
+    title: string;
+    description: string;
+    deliverables: string[];
+    tools: string[];
+    tech_columns?: TechColumn[];
+    stat_card?: StatCard;
+    deploy_tech?: DeployTech[];
+}
+
+interface ProcessStepsContent {
+    items: ProcessStep[];
+}
+
+interface StatItem {
+    value: string;
+    label: string;
+}
+
+interface ProcessPhilosophyContent {
+    heading: string;
+    body: string;
+    button: { label: string; href: string };
+    stats: StatItem[];
+}
+
+// ─── Section components ───────────────────────────────────────────────────────
+
+function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
+    return (
+        <section className="max-w-7xl mx-auto px-8 mb-24">
+            <div className="max-w-3xl">
+                <p className="font-label text-primary uppercase tracking-widest text-[0.6875rem] mb-4">
+                    {content.eyebrow}
+                </p>
+                <h1 className="font-display text-5xl md:text-7xl font-extrabold text-on-surface mb-8 leading-[1.1]">
+                    {content.heading.split('\n').map((part, i, arr) => (
+                        <span key={i}>{i === 0 ? part : <span className="text-primary-container">{part}</span>}{i < arr.length - 1 ? ' ' : ''}</span>
+                    ))}
+                </h1>
+                <p className="text-xl text-on-surface/70 leading-relaxed">{content.bio}</p>
+            </div>
+        </section>
+    );
+}
+
+function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) {
+    const isEven = index % 2 === 0;
+
+    if (step.tech_columns && step.tech_columns.length > 0) {
+        return (
+            <div className="relative p-12 md:p-20">
+                <div className="max-w-4xl mx-auto relative">
+                    <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
+                        {step.number}
+                    </div>
+                    <div className="relative z-10 pt-8">
+                        <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">{step.title}</h2>
+                        <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">{step.description}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {step.tech_columns.map((col) => (
+                                <div key={col.title} className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
+                                    <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">{col.icon}</span>
+                                    <h5 className="font-display font-bold mb-4">{col.title}</h5>
+                                    <ul className="space-y-2 text-sm text-on-surface/60">
+                                        {col.items.map((item) => (
+                                            <li key={item} className="group-hover:text-on-surface/80 transition-colors duration-200">{item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (step.deploy_tech && step.deploy_tech.length > 0) {
+        return (
+            <div className="max-w-4xl mx-auto text-center space-y-8 relative">
+                <div className="pointer-events-none font-label text-[6rem] leading-none font-bold text-primary/20 select-none md:text-[8rem]">
+                    {step.number}
+                </div>
+                <h2 className="font-display text-4xl font-extrabold -mt-16">{step.title}</h2>
+                <p className="text-xl text-on-surface/70">{step.description}</p>
+                <div className="flex flex-wrap justify-center gap-12 pt-8">
+                    {step.deploy_tech.map((tech) => (
+                        <div key={tech.name} className="text-center">
+                            <p className="font-label text-2xl font-bold text-primary">{tech.name}</p>
+                            <p className="text-[10px] uppercase tracking-widest text-on-surface/50 font-label">{tech.label}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className={`grid grid-cols-1 md:grid-cols-12 gap-12 items-start${step.stat_card ? ' items-center' : ''}`}>
+            <div className={`md:col-span-5 relative${isEven ? '' : ' order-1 md:order-2 md:pl-12'}`}>
+                <div className={`pointer-events-none absolute -top-10 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:text-[10rem] ${isEven ? '-left-6 md:-left-8' : '-right-6 md:right-0'}`}>
+                    {step.number}
+                </div>
+                <div className="relative z-10 pt-8">
+                    <h2 className="font-display text-3xl font-bold mb-6">{step.title}</h2>
+                    <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">{step.description}</p>
+                    {step.deliverables.length > 0 && (
+                        <div className="space-y-4">
+                            <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">Deliverables</h4>
+                            <ul className="space-y-2 font-body text-sm text-on-surface/80">
+                                {step.deliverables.map((d) => (
+                                    <li key={d} className="flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                                        {d}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    {step.tools.length > 0 && (
+                        <div className="space-y-4">
+                            <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">Tools Used</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {step.tools.map((tool) => (
+                                    <span key={tool} className="bg-surface-container-lowest px-3 py-1 rounded-full font-label text-[10px] border border-outline-variant/20">{tool}</span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {step.stat_card && (
+                        <div className="p-6 bg-surface-container-low rounded-xl flex items-center gap-4">
+                            <span className="material-symbols-outlined text-primary">{step.stat_card.icon}</span>
+                            <div>
+                                <p className="font-display font-bold text-sm">{step.stat_card.title}</p>
+                                <p className="text-xs text-on-surface/60">{step.stat_card.body}</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className={`md:col-span-7${isEven ? '' : ' order-2 md:order-1'}`}>
+                <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
+                    <div className="w-full h-full flex items-center justify-center">
+                        <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function ProcessStepsSection({ content }: { content: ProcessStepsContent }) {
+    return (
+        <section className="max-w-7xl mx-auto px-8 space-y-32">
+            {content.items.map((step, index) => (
+                <ProcessStepItem key={step.number} step={step} index={index} />
+            ))}
+        </section>
+    );
+}
+
+function ProcessPhilosophySection({ content }: { content: ProcessPhilosophyContent }) {
+    return (
+        <section className="max-w-7xl mx-auto px-8 mt-48">
+            <div className="bg-on-surface text-surface rounded-[4rem] p-12 md:p-32 relative overflow-hidden text-center md:text-left">
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 className="font-display text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">
+                            The <span className="text-primary-fixed-dim">{content.heading.replace('The ', '')}</span>
+                        </h2>
+                        <p className="text-xl text-surface/70 leading-relaxed mb-12">{content.body}</p>
+                        <a href={content.button.href} className="bg-primary text-on-primary px-10 py-5 rounded-xl font-bold hover:scale-105 transition-transform flex items-center gap-3 mx-auto md:mx-0 w-fit">
+                            {content.button.label} <span className="material-symbols-outlined">trending_flat</span>
+                        </a>
+                    </div>
+                    <div className="hidden md:block">
+                        <div className="grid grid-cols-2 gap-6">
+                            {content.stats.map((stat, i) => (
+                                <div key={stat.label} className={`bg-surface/10 backdrop-blur-md p-8 rounded-3xl border border-surface/5${i % 2 !== 0 ? ' mt-12' : ''}`}>
+                                    <p className="font-label text-3xl font-bold text-primary-fixed-dim mb-2">{stat.value}</p>
+                                    <p className="text-xs uppercase tracking-widest font-label text-surface/50">{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function renderSection(section: Section) {
+    const c = section.content;
+    switch (section.type) {
+        case 'process_hero':        return <ProcessHeroSection key={section.id} content={c as unknown as ProcessHeroContent} />;
+        case 'process_steps':       return <ProcessStepsSection key={section.id} content={c as unknown as ProcessStepsContent} />;
+        case 'process_philosophy':  return <ProcessPhilosophySection key={section.id} content={c as unknown as ProcessPhilosophyContent} />;
+        default:                    return null;
+    }
+}
+
+export default function Process({ page, sections }: { page: PageData | null; sections: Section[] }) {
     useEffect(() => {
         document.documentElement.classList.remove('dark');
     }, []);
 
     return (
         <div className="min-h-screen bg-surface">
+            <Head title={page?.meta_title ?? 'Process'}>
+                {page?.meta_description && <meta name="description" content={page.meta_description} />}
+            </Head>
             <PortfolioNavbar
-                homeUrl={home().url}
+                homeUrl={home.url()}
                 projectsUrl="/projects"
                 stackUrl="/stack"
                 processUrl="/process"
@@ -20,250 +274,7 @@ export default function Process() {
             />
 
             <main className="pt-32 pb-20">
-                {/* Hero Section */}
-                <section className="max-w-7xl mx-auto px-8 mb-24">
-                    <div className="max-w-3xl">
-                        <p className="font-label text-primary uppercase tracking-widest text-[0.6875rem] mb-4">
-                            How I Work
-                        </p>
-                        <h1 className="font-display text-5xl md:text-7xl font-extrabold text-on-surface mb-8 leading-[1.1]">
-                            Engineering  <span className="text-primary-container">Solutions.</span>
-                        </h1>
-                        <p className="text-xl text-on-surface/70 leading-relaxed">
-                            My methodology is a blend of meticulous architecture and high-performance engineering. Every system is built to scale, designed for longevity, and optimized for maximum efficiency.
-                        </p>
-                    </div>
-                </section>
-
-                {/* Process Steps */}
-                <section className="max-w-7xl mx-auto px-8 space-y-32">
-                    {/* Step 01 */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-                        <div className="md:col-span-5 relative">
-                            <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
-                                01
-                            </div>
-                            <div className="relative z-10 pt-8">
-                                <h2 className="font-display text-3xl font-bold mb-6">Discovery & Architecture</h2>
-                                <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">
-                                    Before a single line of code is written, I dive deep into the problem space. We define technical constraints, scalability requirements, and the fundamental data architecture that will support the system's growth.
-                                </p>
-                                <div className="space-y-4">
-                                    <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">
-                                        Deliverables
-                                    </h4>
-                                    <ul className="space-y-2 font-body text-sm text-on-surface/80">
-                                        <li className="flex items-center gap-2">
-                                            <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
-                                            System Infrastructure Diagrams
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
-                                            Technical Specification Documents
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
-                                            Scalability Strategy
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="md:col-span-7">
-                            <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
-                                <div className="w-full h-full flex items-center justify-center">
-                                    <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Step 02 */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-                        <div className="md:col-span-7 order-2 md:order-1">
-                            <div className="bg-surface-container rounded-3xl overflow-hidden aspect-[4/3] relative group">
-                                <div className="w-full h-full flex items-center justify-center">
-                                    <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="md:col-span-5 order-1 md:order-2 relative md:pl-12">
-                            <div className="pointer-events-none absolute -top-10 -right-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:right-0 md:text-[10rem]">
-                                02
-                            </div>
-                            <div className="relative z-10 pt-8">
-                                <h2 className="font-display text-3xl font-bold mb-6">Design & Prototyping</h2>
-                                <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">
-                                    Utility meets aesthetic. I create high-fidelity prototypes that mirror the final performance. The focus is on a seamless developer experience and an intuitive user interface that feels native to the brand's identity.
-                                </p>
-                                <div className="space-y-4">
-                                    <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">
-                                        Tools Used
-                                    </h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="bg-surface-container-lowest px-3 py-1 rounded-full font-label text-[10px] border border-outline-variant/20">
-                                            Figma
-                                        </span>
-                                        <span className="bg-surface-container-lowest px-3 py-1 rounded-full font-label text-[10px] border border-outline-variant/20">
-                                            Framer
-                                        </span>
-                                        <span className="bg-surface-container-lowest px-3 py-1 rounded-full font-label text-[10px] border border-outline-variant/20">
-                                            Adobe CC
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Step 03 */}
-                    <div className="relative p-12 md:p-20">
-                        <div className="max-w-4xl mx-auto relative">
-                            <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
-                                03
-                            </div>
-                            <div className="relative z-10 pt-8">
-                                <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">Engineering & Implementation</h2>
-                                <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">
-                                    This is where precision meets production. I leverage modern frameworks to build modular, maintainable, and lightning-fast codebases. Clean code is not just a standard—it's a requirement.
-                                </p>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                    <div className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
-                                        <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">brush</span>
-                                        <h5 className="font-display font-bold mb-4">Frontend</h5>
-                                        <ul className="space-y-2 text-sm text-on-surface/60">
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">React</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Next.js</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">TypeScript</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">JavaScript</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Tailwind CSS</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">CSS Modules</li>
-                                        </ul>
-                                    </div>
-                                    <div className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
-                                        <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">database</span>
-                                        <h5 className="font-display font-bold mb-4">Backend</h5>
-                                        <ul className="space-y-2 text-sm text-on-surface/60">
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Laravel</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Node.js</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">PostgreSQL</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">MySQL</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">REST APIs</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">GraphQL</li>
-                                        </ul>
-                                    </div>
-                                    <div className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
-                                        <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">speed</span>
-                                        <h5 className="font-display font-bold mb-4">Performance</h5>
-                                        <ul className="space-y-2 text-sm text-on-surface/60">
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Edge rendering</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">CDN-first delivery</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Redis caching</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Query optimization</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Queue workers</li>
-                                            <li className="group-hover:text-on-surface/80 transition-colors duration-200">Background jobs</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Step 04 */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                        <div className="md:col-span-5 relative">
-                            <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
-                                04
-                            </div>
-                            <div className="relative z-10 pt-8">
-                                <h2 className="font-display text-3xl font-bold mb-6">Testing & QA</h2>
-                                <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">
-                                    Zero-compromise quality assurance. I implement automated testing suites including Unit, Integration, and E2E tests to ensure every deploy is as stable as the last.
-                                </p>
-                                <div className="p-6 bg-surface-container-low rounded-xl flex items-center gap-4">
-                                    <span className="material-symbols-outlined text-primary">verified_user</span>
-                                    <div>
-                                        <p className="font-display font-bold text-sm">99.9% Build Reliability</p>
-                                        <p className="text-xs text-on-surface/60">
-                                            Automated CI/CD pipelines with rigid linting and test coverage.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="md:col-span-7">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="aspect-square bg-surface-container-highest rounded-2xl flex items-center justify-center p-8">
-                                    <span className="material-symbols-outlined text-4xl text-surface-variant">image_not_supported</span>
-                                </div>
-                                <div className="aspect-square bg-surface-container-low rounded-2xl overflow-hidden mt-8 flex items-center justify-center">
-                                    <span className="material-symbols-outlined text-4xl text-surface-variant">image_not_supported</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Step 05 */}
-                    <div className="max-w-4xl mx-auto text-center space-y-8 relative">
-                        <div className="pointer-events-none font-label text-[6rem] leading-none font-bold text-primary/20 select-none md:text-[8rem]">
-                            05
-                        </div>
-                        <h2 className="font-display text-4xl font-extrabold -mt-16">Deployment & Scale</h2>
-                        <p className="text-xl text-on-surface/70">
-                            The launch is just the beginning. I deploy using globally distributed infrastructure with automated scaling to handle traffic spikes effortlessly.
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-12 pt-8">
-                            <div className="text-center">
-                                <p className="font-label text-2xl font-bold text-primary">AWS</p>
-                                <p className="text-[10px] uppercase tracking-widest text-on-surface/50 font-label">Cloud Infrastructure</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="font-label text-2xl font-bold text-primary">Docker</p>
-                                <p className="text-[10px] uppercase tracking-widest text-on-surface/50 font-label">Containerization</p>
-                            </div>
-                            <div className="text-center">
-                                <p className="font-label text-2xl font-bold text-primary">Vercel</p>
-                                <p className="text-[10px] uppercase tracking-widest text-on-surface/50 font-label">Edge Deployment</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Philosophy Section */}
-                <section className="max-w-7xl mx-auto px-8 mt-48">
-                    <div className="bg-on-surface text-surface rounded-[4rem] p-12 md:p-32 relative overflow-hidden text-center md:text-left">
-                        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                            <div>
-                                <h2 className="font-display text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">
-                                    The <span className="text-primary-fixed-dim">Philosophy</span>
-                                </h2>
-                                <p className="text-xl text-surface/70 leading-relaxed mb-12">
-                                    Building for the web isn't just about pixels or scripts; it's about engineering resilience. My work is guided by three core pillars: Performance without compromise, Scalability by default, and Precision as a standard.
-                                </p>
-                                <button className="bg-primary text-on-primary px-10 py-5 rounded-xl font-bold hover:scale-105 transition-transform flex items-center gap-3 mx-auto md:mx-0">
-                                    Start a Project <span className="material-symbols-outlined">trending_flat</span>
-                                </button>
-                            </div>
-                            <div className="hidden md:block">
-                                <div className="grid grid-cols-2 gap-6">
-                                    <div className="bg-surface/10 backdrop-blur-md p-8 rounded-3xl border border-surface/5">
-                                        <p className="font-label text-3xl font-bold text-primary-fixed-dim mb-2">100</p>
-                                        <p className="text-xs uppercase tracking-widest font-label text-surface/50">
-                                            Lighthouse Score
-                                        </p>
-                                    </div>
-                                    <div className="bg-surface/10 backdrop-blur-md p-8 rounded-3xl border border-surface/5 mt-12">
-                                        <p className="font-label text-3xl font-bold text-primary-fixed-dim mb-2">10ms</p>
-                                        <p className="text-xs uppercase tracking-widest font-label text-surface/50">
-                                            Database Latency
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {sections.map(renderSection)}
             </main>
 
             {/* Footer */}
@@ -273,18 +284,10 @@ export default function Process() {
                         Usman Haruna.
                     </div>
                     <div className="flex gap-12 mb-8 md:mb-0 text-[#151c27]/50 dark:text-[#f9f9ff]/50">
-                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">
-                            Github
-                        </a>
-                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">
-                            LinkedIn
-                        </a>
-                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">
-                            Twitter
-                        </a>
-                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">
-                            Resume
-                        </a>
+                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">Github</a>
+                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">LinkedIn</a>
+                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">Twitter</a>
+                        <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">Resume</a>
                     </div>
                     <div className="text-[#151c27]/50 dark:text-[#f9f9ff]/50">© 2024 Usman Haruna. Built with Precision.</div>
                 </div>

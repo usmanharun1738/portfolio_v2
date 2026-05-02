@@ -1,26 +1,59 @@
 <?php
 
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PageSectionController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProcessController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\StackController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
 
-Route::inertia('/', 'welcome', [
-    'canRegister' => Features::enabled(Features::registration()),
-])->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
-Route::inertia('/projects', 'projects')->name('projects.index');
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::inertia('/projects/face-recognition', 'case-studies/face-recognition')->name('projects.face-recognition');
 Route::inertia('/projects/car-rental', 'case-studies/car-rental')->name('projects.car-rental');
 
-Route::inertia('/contact', 'contact')->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::inertia('/stack', 'stack')->name('stack');
+Route::get('/stack', [StackController::class, 'index'])->name('stack');
 
-Route::inertia('/process', 'process')->name('process');
+Route::get('/process', [ProcessController::class, 'index'])->name('process');
 
-Route::inertia('/resume', 'resume')->name('resume');
+Route::get('/resume', [ResumeController::class, 'index'])->name('resume');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        // Projects
+        Route::resource('projects', AdminProjectController::class)
+            ->except(['show']);
+        Route::post('projects/reorder', [AdminProjectController::class, 'reorder'])->name('projects.reorder');
+
+        // Pages
+        Route::resource('pages', PageController::class)
+            ->except(['show']);
+
+        // Sections (nested under pages)
+        Route::prefix('pages/{page}/sections')->name('pages.sections.')->group(function () {
+            Route::get('create', [PageSectionController::class, 'create'])->name('create');
+            Route::post('/', [PageSectionController::class, 'store'])->name('store');
+            Route::get('{section}/edit', [PageSectionController::class, 'edit'])->name('edit');
+            Route::patch('{section}', [PageSectionController::class, 'update'])->name('update');
+            Route::delete('{section}', [PageSectionController::class, 'destroy'])->name('destroy');
+            Route::post('reorder', [PageSectionController::class, 'reorder'])->name('reorder');
+        });
+
+        // Site settings
+        Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
+        Route::patch('settings/{siteSetting}', [SiteSettingController::class, 'update'])->name('settings.update');
+        Route::post('settings/bulk', [SiteSettingController::class, 'bulkUpdate'])->name('settings.bulk-update');
+    });
 });
 
 require __DIR__.'/settings.php';
