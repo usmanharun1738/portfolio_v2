@@ -2,6 +2,7 @@ import { Head, router, useForm, usePage } from '@inertiajs/react';
 import admin from '@/routes/admin';
 import { dashboard } from '@/routes';
 import { useRef } from 'react';
+import { toast } from 'sonner';
 
 interface MediaItem {
     id: number;
@@ -52,11 +53,21 @@ export default function AdminMediaIndex({ media }: { media: MediaItem[] }) {
 
     function deleteMedia(item: MediaItem) {
         if (!confirm(`Delete "${item.original_name}"?`)) return;
-        router.delete(admin.media.destroy(item).url, { preserveScroll: true });
+        router.delete(admin.media.destroy(item).url, {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Media deleted');
+            },
+        });
     }
 
-    function copyUrl(url: string) {
-        navigator.clipboard.writeText(url);
+    async function copyUrl(url: string) {
+        try {
+            await navigator.clipboard.writeText(url);
+            toast.success('URL copied');
+        } catch {
+            toast.error('Could not copy URL');
+        }
     }
 
     return (

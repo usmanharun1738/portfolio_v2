@@ -85,9 +85,9 @@ export default function AdminProjectsEdit({ project }: { project: Project }) {
                 ...data,
                 tech_stack: data.tech_stack
                     ? data.tech_stack
-                          .split(',')
-                          .map((t) => t.trim())
-                          .filter(Boolean)
+                        .split(',')
+                        .map((t) => t.trim())
+                        .filter(Boolean)
                     : [],
             },
         });

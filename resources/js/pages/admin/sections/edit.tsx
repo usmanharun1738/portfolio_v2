@@ -1,4 +1,4 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import admin from '@/routes/admin';
 import { dashboard } from '@/routes';
@@ -94,6 +94,14 @@ export default function AdminSectionsEdit({
         }
     }
 
+    function openMediaPicker() {
+        setShowMediaPicker(true);
+        router.reload({
+            only: ['media'],
+            preserveScroll: true,
+        });
+    }
+
     return (
         <>
             <Head title={`Edit Section — ${section.name}`} />
@@ -162,7 +170,7 @@ export default function AdminSectionsEdit({
                             />
                             <button
                                 type="button"
-                                onClick={() => setShowMediaPicker(true)}
+                                onClick={openMediaPicker}
                                 className="rounded-lg border border-outline-variant px-3 py-2 text-xs font-semibold hover:bg-surface-container"
                             >
                                 Choose Media
@@ -194,13 +202,27 @@ export default function AdminSectionsEdit({
                         <div className="max-h-[80vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-surface p-5 shadow-2xl">
                             <div className="mb-4 flex items-center justify-between">
                                 <h2 className="text-lg font-bold">Select Media</h2>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowMediaPicker(false)}
-                                    className="rounded-lg px-3 py-1 text-sm hover:bg-surface-container"
-                                >
-                                    Close
-                                </button>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            router.reload({
+                                                only: ['media'],
+                                                preserveScroll: true,
+                                            })
+                                        }
+                                        className="rounded-lg border border-outline-variant px-3 py-1 text-sm hover:bg-surface-container"
+                                    >
+                                        Refresh
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowMediaPicker(false)}
+                                        className="rounded-lg px-3 py-1 text-sm hover:bg-surface-container"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
                             </div>
                             {media.length === 0 ? (
                                 <p className="py-8 text-center text-sm text-on-surface-variant">No media found. Upload files in Media Library.</p>
