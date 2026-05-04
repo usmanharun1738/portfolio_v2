@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import admin from '@/routes/admin';
 import { dashboard } from '@/routes';
 
@@ -22,7 +22,25 @@ interface Project {
     is_visible: boolean;
 }
 
+interface Flash {
+    success?: string;
+    error?: string;
+}
+
+const CATEGORY_OPTIONS = [
+    'Artificial Intelligence',
+    'Full Stack Web App',
+    'Mobile App',
+    'API / Backend',
+    'Data Engineering',
+    'DevOps',
+    'Other',
+] as const;
+
 export default function AdminProjectsEdit({ project }: { project: Project }) {
+    const { props } = usePage<{ flash: Flash }>();
+    const flash = props.flash;
+
     const { data, setData, patch, processing, errors } = useForm<{
         title: string;
         slug: string;
@@ -61,11 +79,15 @@ export default function AdminProjectsEdit({ project }: { project: Project }) {
 
     function submit(e: React.FormEvent) {
         e.preventDefault();
+
         patch(admin.projects.update(project).url, {
             data: {
                 ...data,
                 tech_stack: data.tech_stack
-                    ? data.tech_stack.split(',').map((t) => t.trim()).filter(Boolean)
+                    ? data.tech_stack
+                          .split(',')
+                          .map((t) => t.trim())
+                          .filter(Boolean)
                     : [],
             },
         });
@@ -74,162 +96,196 @@ export default function AdminProjectsEdit({ project }: { project: Project }) {
     return (
         <>
             <Head title={`Edit ${project.title} — Admin`} />
-            <div className="mx-auto max-w-3xl p-6">
-                <h1 className="mb-6 text-2xl font-bold">Edit Project: {project.title}</h1>
-                <form onSubmit={submit} className="space-y-5">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                        <Field label="Title" error={errors.title}>
-                            <input
-                                value={data.title}
-                                onChange={(e) => setData('title', e.target.value)}
-                                className="input"
-                            />
-                        </Field>
-                        <Field label="Display Number" error={errors.display_number}>
-                            <input
-                                value={data.display_number}
-                                onChange={(e) => setData('display_number', e.target.value)}
-                                className="input font-mono"
-                            />
-                        </Field>
-                        <Field label="Slug (optional)" error={errors.slug}>
-                            <input
-                                value={data.slug}
-                                onChange={(e) => setData('slug', e.target.value)}
-                                className="input font-mono"
-                            />
-                        </Field>
-                        <Field label="Category" error={errors.category}>
-                            <input
-                                value={data.category}
-                                onChange={(e) => setData('category', e.target.value)}
-                                className="input"
-                            />
-                        </Field>
+
+            <div className="mx-auto max-w-4xl space-y-10 p-6">
+                {flash?.success && (
+                    <div className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">{flash.success}</div>
+                )}
+                {flash?.error && (
+                    <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{flash.error}</div>
+                )}
+
+                <section>
+                    <div className="mb-6 flex items-center justify-between">
+                        <h1 className="text-2xl font-bold">Edit Project: {project.title}</h1>
+                        <a
+                            href={admin.projects.preview(project).url}
+                            className="rounded-lg border border-outline-variant px-4 py-2 text-sm font-semibold hover:bg-surface-container"
+                        >
+                            Preview →
+                        </a>
                     </div>
 
-                    <Field label="Description" error={errors.description}>
-                        <textarea
-                            value={data.description}
-                            onChange={(e) => setData('description', e.target.value)}
-                            rows={3}
-                            className="input"
-                        />
-                    </Field>
+                    <form onSubmit={submit} className="space-y-5">
+                        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                            <Field label="Title" error={errors.title}>
+                                <input
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </Field>
 
-                    <Field label="Tech Stack (comma-separated)" error={errors.tech_stack}>
-                        <input
-                            value={data.tech_stack}
-                            onChange={(e) => setData('tech_stack', e.target.value)}
-                            className="input"
-                        />
-                    </Field>
+                            <Field label="Display Number" error={errors.display_number}>
+                                <input
+                                    value={data.display_number}
+                                    onChange={(e) => setData('display_number', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </Field>
 
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                        <Field label="Case Study Route (named)" error={errors.case_study_route}>
-                            <input
-                                value={data.case_study_route}
-                                onChange={(e) => setData('case_study_route', e.target.value)}
-                                className="input font-mono"
+                            <Field label="Slug (optional)" error={errors.slug}>
+                                <input
+                                    value={data.slug}
+                                    onChange={(e) => setData('slug', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </Field>
+
+                            <Field label="Category" error={errors.category}>
+                                <select
+                                    value={data.category}
+                                    onChange={(e) => setData('category', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    {CATEGORY_OPTIONS.map((category) => (
+                                        <option key={category} value={category}>
+                                            {category}
+                                        </option>
+                                    ))}
+                                    {!CATEGORY_OPTIONS.includes(data.category as (typeof CATEGORY_OPTIONS)[number]) && (
+                                        <option value={data.category}>{data.category}</option>
+                                    )}
+                                </select>
+                            </Field>
+                        </div>
+
+                        <Field label="Description" error={errors.description}>
+                            <textarea
+                                value={data.description}
+                                onChange={(e) => setData('description', e.target.value)}
+                                rows={4}
+                                className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </Field>
-                        <Field label="Image URL" error={errors.image_url}>
+
+                        <Field label="Tech Stack (comma-separated)" error={errors.tech_stack}>
                             <input
-                                value={data.image_url}
-                                onChange={(e) => setData('image_url', e.target.value)}
-                                className="input"
+                                value={data.tech_stack}
+                                onChange={(e) => setData('tech_stack', e.target.value)}
+                                className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </Field>
-                        <Field label="Icon Name (Material Symbol)" error={errors.icon_name}>
+
+                        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                            <Field label="Case Study Route (named)" error={errors.case_study_route}>
+                                <input
+                                    value={data.case_study_route}
+                                    onChange={(e) => setData('case_study_route', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </Field>
+
+                            <Field label="Image URL" error={errors.image_url}>
+                                <input
+                                    value={data.image_url}
+                                    onChange={(e) => setData('image_url', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </Field>
+
+                            <Field label="Icon Name (Material Symbol)" error={errors.icon_name}>
+                                <input
+                                    value={data.icon_name}
+                                    onChange={(e) => setData('icon_name', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                />
+                            </Field>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
+                            <Field label="Card Style" error={errors.card_style}>
+                                <select
+                                    value={data.card_style}
+                                    onChange={(e) => setData('card_style', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    <option value="standard">Standard</option>
+                                    <option value="featured">Featured</option>
+                                    <option value="compact">Compact</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </Field>
+
+                            <Field label="Grid Span" error={errors.grid_span}>
+                                <select
+                                    value={data.grid_span}
+                                    onChange={(e) => setData('grid_span', Number(e.target.value))}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    <option value={4}>4</option>
+                                    <option value={6}>6</option>
+                                    <option value={8}>8</option>
+                                </select>
+                            </Field>
+
+                            <Field label="Home Span" error={errors.home_span}>
+                                <select
+                                    value={data.home_span}
+                                    onChange={(e) => setData('home_span', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    <option value="">—</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </Field>
+
+                            <Field label="Home Height" error={errors.home_height}>
+                                <select
+                                    value={data.home_height}
+                                    onChange={(e) => setData('home_height', e.target.value)}
+                                    className="w-full rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                >
+                                    <option value="">—</option>
+                                    <option value="h-100">h-100</option>
+                                    <option value="h-125">h-125</option>
+                                </select>
+                            </Field>
+                        </div>
+
+                        <Field label="Sort Order" error={errors.sort_order}>
                             <input
-                                value={data.icon_name}
-                                onChange={(e) => setData('icon_name', e.target.value)}
-                                className="input"
+                                type="number"
+                                value={data.sort_order}
+                                onChange={(e) => setData('sort_order', Number(e.target.value))}
+                                className="w-32 rounded-lg border border-outline-variant bg-surface px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                         </Field>
-                    </div>
 
-                    <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
-                        <Field label="Card Style" error={errors.card_style}>
-                            <select
-                                value={data.card_style}
-                                onChange={(e) => setData('card_style', e.target.value)}
-                                className="input"
-                            >
-                                <option value="standard">Standard</option>
-                                <option value="featured">Featured</option>
-                                <option value="compact">Compact</option>
-                                <option value="dark">Dark</option>
-                            </select>
-                        </Field>
-                        <Field label="Grid Span" error={errors.grid_span}>
-                            <select
-                                value={data.grid_span}
-                                onChange={(e) => setData('grid_span', Number(e.target.value))}
-                                className="input"
-                            >
-                                <option value={4}>4</option>
-                                <option value={6}>6</option>
-                                <option value={8}>8</option>
-                            </select>
-                        </Field>
-                        <Field label="Home Span" error={errors.home_span}>
-                            <select
-                                value={data.home_span}
-                                onChange={(e) => setData('home_span', e.target.value)}
-                                className="input"
-                            >
-                                <option value="">—</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                            </select>
-                        </Field>
-                        <Field label="Home Height" error={errors.home_height}>
-                            <select
-                                value={data.home_height}
-                                onChange={(e) => setData('home_height', e.target.value)}
-                                className="input"
-                            >
-                                <option value="">—</option>
-                                <option value="h-100">h-100</option>
-                                <option value="h-125">h-125</option>
-                            </select>
-                        </Field>
-                    </div>
+                        <div className="flex gap-6">
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={data.is_featured_on_home}
+                                    onChange={(e) => setData('is_featured_on_home', e.target.checked)}
+                                    className="h-4 w-4 rounded border-outline-variant accent-primary"
+                                />
+                                Featured on Homepage
+                            </label>
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={data.is_visible}
+                                    onChange={(e) => setData('is_visible', e.target.checked)}
+                                    className="h-4 w-4 rounded border-outline-variant accent-primary"
+                                />
+                                Visible
+                            </label>
+                        </div>
 
-                    <Field label="Sort Order" error={errors.sort_order}>
-                        <input
-                            type="number"
-                            value={data.sort_order}
-                            onChange={(e) => setData('sort_order', Number(e.target.value))}
-                            className="input w-32"
-                        />
-                    </Field>
-
-                    <div className="flex gap-6">
-                        <label className="flex items-center gap-2 text-sm">
-                            <input
-                                type="checkbox"
-                                checked={data.is_featured_on_home}
-                                onChange={(e) => setData('is_featured_on_home', e.target.checked)}
-                                className="h-4 w-4 rounded border-outline-variant accent-primary"
-                            />
-                            Featured on Homepage
-                        </label>
-                        <label className="flex items-center gap-2 text-sm">
-                            <input
-                                type="checkbox"
-                                checked={data.is_visible}
-                                onChange={(e) => setData('is_visible', e.target.checked)}
-                                className="h-4 w-4 rounded border-outline-variant accent-primary"
-                            />
-                            Visible
-                        </label>
-                    </div>
-
-                    <div className="flex gap-3">
                         <button
                             type="submit"
                             disabled={processing}
@@ -237,8 +293,8 @@ export default function AdminProjectsEdit({ project }: { project: Project }) {
                         >
                             Save Changes
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </section>
             </div>
         </>
     );

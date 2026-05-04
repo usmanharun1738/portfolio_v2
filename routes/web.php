@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('projects', AdminProjectController::class)
             ->except(['show']);
         Route::post('projects/reorder', [AdminProjectController::class, 'reorder'])->name('projects.reorder');
+        Route::get('projects/{project}/preview', [AdminProjectController::class, 'preview'])->name('projects.preview');
 
         // Pages
         Route::resource('pages', PageController::class)

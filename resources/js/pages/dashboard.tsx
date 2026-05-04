@@ -23,6 +23,12 @@ export default function Dashboard() {
                         icon="article"
                     />
                     <DashCard
+                        title="Media Library"
+                        description="Upload and manage reusable media assets"
+                        href={admin.media.index.url()}
+                        icon="photo_library"
+                    />
+                    <DashCard
                         title="Settings"
                         description="Edit global site settings"
                         href={admin.settings.index.url()}

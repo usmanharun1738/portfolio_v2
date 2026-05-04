@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -67,5 +68,15 @@ class ProjectController extends Controller
         }
 
         return back()->with('success', 'Order saved.');
+    }
+
+    public function preview(Project $project): RedirectResponse
+    {
+        if ($project->case_study_route && Route::has($project->case_study_route)) {
+            return redirect()->route($project->case_study_route);
+        }
+
+        return redirect()->route('projects.index')
+            ->with('error', 'No case study route is configured for this project preview.');
     }
 }
