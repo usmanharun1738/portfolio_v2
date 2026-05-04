@@ -78,6 +78,23 @@ interface ProcessPhilosophyContent {
     stats: StatItem[];
 }
 
+function normalizeProcessStep(step: ProcessStep, index: number) {
+    const fallbackNumber = String(index + 1).padStart(2, '0');
+
+    return {
+        number: step.number || fallbackNumber,
+        title: step.title || `Process Step ${fallbackNumber}`,
+        description: step.description || '',
+        deliverables: Array.isArray(step.deliverables) ? step.deliverables : [],
+        tools: Array.isArray(step.tools) ? step.tools : [],
+        tech_columns: Array.isArray(step.tech_columns) ? step.tech_columns : [],
+        deploy_tech: Array.isArray(step.deploy_tech) ? step.deploy_tech : [],
+        stat_card: step.stat_card,
+        image_url: step.image_url,
+        image_alt: step.image_alt,
+    };
+}
+
 // ─── Section components ───────────────────────────────────────────────────────
 
 function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
@@ -101,7 +118,7 @@ function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
 function ProcessStepImage({ step }: { step: ProcessStep }) {
     if (!step.image_url) {
         return (
-            <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
+            <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-[22rem]">
                 <div className="w-full h-full flex items-center justify-center">
                     <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
                 </div>
@@ -111,35 +128,36 @@ function ProcessStepImage({ step }: { step: ProcessStep }) {
     }
 
     return (
-        <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
+        <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-[22rem]">
             <img
                 src={step.image_url}
-                alt={step.image_alt ?? step.title}
-                className="h-full w-full object-cover"
+                alt={step.image_alt ?? step.title ?? 'Process step image'}
+                className="block h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-white/70 via-transparent to-transparent"></div>
         </div>
     );
 }
 
 function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) {
+    const normalizedStep = normalizeProcessStep(step, index);
     const isEven = index % 2 === 0;
 
-    if (step.tech_columns && step.tech_columns.length > 0) {
+    if (normalizedStep.tech_columns.length > 0) {
         return (
             <div className="relative p-12 md:p-20">
                 <div className="max-w-4xl mx-auto relative">
                     <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
-                        {step.number}
+                        {normalizedStep.number}
                     </div>
                     <div className="relative z-10 pt-8">
-                        <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">{step.title}</h2>
-                        <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">{step.description}</p>
+                        <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">{normalizedStep.title}</h2>
+                        <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">{normalizedStep.description}</p>
                         <div className="mb-12">
-                            <ProcessStepImage step={step} />
+                            <ProcessStepImage step={normalizedStep} />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {step.tech_columns.map((col) => (
+                            {normalizedStep.tech_columns.map((col) => (
                                 <div key={col.title} className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
                                     <span className="material-symbols-outlined text-primary mb-4 block text-3xl group-hover:scale-110 transition-transform duration-300">{col.icon}</span>
                                     <h5 className="font-display font-bold mb-4">{col.title}</h5>
@@ -157,19 +175,19 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
         );
     }
 
-    if (step.deploy_tech && step.deploy_tech.length > 0) {
+    if (normalizedStep.deploy_tech.length > 0) {
         return (
             <div className="max-w-4xl mx-auto text-center space-y-8 relative">
                 <div className="pointer-events-none font-label text-[6rem] leading-none font-bold text-primary/20 select-none md:text-[8rem]">
-                    {step.number}
+                    {normalizedStep.number}
                 </div>
-                <h2 className="font-display text-4xl font-extrabold -mt-16">{step.title}</h2>
-                <p className="text-xl text-on-surface/70">{step.description}</p>
+                <h2 className="font-display text-4xl font-extrabold -mt-16">{normalizedStep.title}</h2>
+                <p className="text-xl text-on-surface/70">{normalizedStep.description}</p>
                 <div className="mx-auto w-full max-w-3xl">
-                    <ProcessStepImage step={step} />
+                    <ProcessStepImage step={normalizedStep} />
                 </div>
                 <div className="flex flex-wrap justify-center gap-12 pt-8">
-                    {step.deploy_tech.map((tech) => (
+                    {normalizedStep.deploy_tech.map((tech) => (
                         <div key={tech.name} className="text-center">
                             <p className="font-label text-2xl font-bold text-primary">{tech.name}</p>
                             <p className="text-[10px] uppercase tracking-widest text-on-surface/50 font-label">{tech.label}</p>
@@ -181,19 +199,19 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
     }
 
     return (
-        <div className={`grid grid-cols-1 md:grid-cols-12 gap-12 items-start${step.stat_card ? ' items-center' : ''}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-12 gap-12 items-start${normalizedStep.stat_card ? ' items-center' : ''}`}>
             <div className={`md:col-span-5 relative${isEven ? '' : ' order-1 md:order-2 md:pl-12'}`}>
                 <div className={`pointer-events-none absolute -top-10 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:text-[10rem] ${isEven ? '-left-6 md:-left-8' : '-right-6 md:right-0'}`}>
-                    {step.number}
+                    {normalizedStep.number}
                 </div>
                 <div className="relative z-10 pt-8">
-                    <h2 className="font-display text-3xl font-bold mb-6">{step.title}</h2>
-                    <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">{step.description}</p>
-                    {step.deliverables.length > 0 && (
+                    <h2 className="font-display text-3xl font-bold mb-6">{normalizedStep.title}</h2>
+                    <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">{normalizedStep.description}</p>
+                    {normalizedStep.deliverables.length > 0 && (
                         <div className="space-y-4">
                             <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">Deliverables</h4>
                             <ul className="space-y-2 font-body text-sm text-on-surface/80">
-                                {step.deliverables.map((d) => (
+                                {normalizedStep.deliverables.map((d) => (
                                     <li key={d} className="flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                                         {d}
@@ -202,29 +220,29 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
                             </ul>
                         </div>
                     )}
-                    {step.tools.length > 0 && (
+                    {normalizedStep.tools.length > 0 && (
                         <div className="space-y-4">
                             <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">Tools Used</h4>
                             <div className="flex flex-wrap gap-2">
-                                {step.tools.map((tool) => (
+                                {normalizedStep.tools.map((tool) => (
                                     <span key={tool} className="bg-surface-container-lowest px-3 py-1 rounded-full font-label text-[10px] border border-outline-variant/20">{tool}</span>
                                 ))}
                             </div>
                         </div>
                     )}
-                    {step.stat_card && (
+                    {normalizedStep.stat_card && (
                         <div className="p-6 bg-surface-container-low rounded-xl flex items-center gap-4">
-                            <span className="material-symbols-outlined text-primary">{step.stat_card.icon}</span>
+                            <span className="material-symbols-outlined text-primary">{normalizedStep.stat_card.icon}</span>
                             <div>
-                                <p className="font-display font-bold text-sm">{step.stat_card.title}</p>
-                                <p className="text-xs text-on-surface/60">{step.stat_card.body}</p>
+                                <p className="font-display font-bold text-sm">{normalizedStep.stat_card.title}</p>
+                                <p className="text-xs text-on-surface/60">{normalizedStep.stat_card.body}</p>
                             </div>
                         </div>
                     )}
                 </div>
             </div>
-            <div className={`md:col-span-7${isEven ? '' : ' order-2 md:order-1'}`}>
-                <ProcessStepImage step={step} />
+            <div className={`md:col-span-7 self-center${isEven ? '' : ' order-2 md:order-1'}`}>
+                <ProcessStepImage step={normalizedStep} />
             </div>
         </div>
     );
@@ -234,7 +252,7 @@ function ProcessStepsSection({ content }: { content: ProcessStepsContent }) {
     return (
         <section className="max-w-7xl mx-auto px-8 space-y-32">
             {content.items.map((step, index) => (
-                <ProcessStepItem key={step.number} step={step} index={index} />
+                <ProcessStepItem key={step.number ?? `step-${index}`} step={step} index={index} />
             ))}
         </section>
     );
