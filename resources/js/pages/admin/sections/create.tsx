@@ -1,7 +1,7 @@
 import { Head, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
-import admin from '@/routes/admin';
 import { dashboard } from '@/routes';
+import admin from '@/routes/admin';
 
 interface Page {
     id: number;
@@ -21,6 +21,14 @@ const SECTION_TYPES = [
     'process_hero', 'process_steps', 'process_philosophy',
     'contact_hero', 'contact_info',
     'resume_hero', 'resume_summary', 'resume_experience', 'resume_skills', 'resume_education', 'resume_certifications',
+] as const;
+
+const PROCESS_STEP_IMAGE_KEYS = [
+    { label: '01', path: 'items.0.image_url' },
+    { label: '02', path: 'items.1.image_url' },
+    { label: '03', path: 'items.2.image_url' },
+    { label: '04', path: 'items.3.image_url' },
+    { label: '05', path: 'items.4.image_url' },
 ] as const;
 
 export default function AdminSectionsCreate({ page, media }: { page: Page; media: MediaItem[] }) {
@@ -152,6 +160,19 @@ export default function AdminSectionsCreate({ page, media }: { page: Page; media
                             >
                                 Open Library ↗
                             </a>
+                        </div>
+                        <div className="mt-2 flex flex-wrap items-center gap-2">
+                            <span className="text-[11px] text-on-surface-variant">Process step image key:</span>
+                            {PROCESS_STEP_IMAGE_KEYS.map((item) => (
+                                <button
+                                    key={item.path}
+                                    type="button"
+                                    onClick={() => setMediaKeyPath(item.path)}
+                                    className="rounded-md border border-outline-variant bg-surface px-2 py-1 font-mono text-[11px] hover:bg-surface-container"
+                                >
+                                    {item.label}
+                                </button>
+                            ))}
                         </div>
                     </div>
                     <label className="flex items-center gap-2 text-sm">

@@ -274,11 +274,11 @@ function renderSection(section: Section) {
     const c = section.content;
 
     switch (section.type) {
-        case 'process_hero':        return <ProcessHeroSection key={section.id} content={c as unknown as ProcessHeroContent} />;
-        case 'process_steps':       return <ProcessStepsSection key={section.id} content={c as unknown as ProcessStepsContent} />;
-        case 'process_philosophy':  return <ProcessPhilosophySection key={section.id} content={c as unknown as ProcessPhilosophyContent} />;
+        case 'process_hero': return <ProcessHeroSection key={section.id} content={c as unknown as ProcessHeroContent} />;
+        case 'process_steps': return <ProcessStepsSection key={section.id} content={c as unknown as ProcessStepsContent} />;
+        case 'process_philosophy': return <ProcessPhilosophySection key={section.id} content={c as unknown as ProcessPhilosophyContent} />;
 
-        default:                    return null;
+        default: return null;
     }
 }
 
