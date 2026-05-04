@@ -63,7 +63,7 @@ interface ProcessStep {
 }
 
 interface ProcessStepsContent {
-    items: ProcessStep[];
+    items: ProcessStep[] | Record<string, ProcessStep>;
 }
 
 interface StatItem {
@@ -118,7 +118,7 @@ function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
 function ProcessStepImage({ step }: { step: ProcessStep }) {
     if (!step.image_url) {
         return (
-            <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-[22rem]">
+            <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-88">
                 <div className="w-full h-full flex items-center justify-center">
                     <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
                 </div>
@@ -128,7 +128,7 @@ function ProcessStepImage({ step }: { step: ProcessStep }) {
     }
 
     return (
-        <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-[22rem]">
+        <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-88">
             <img
                 src={step.image_url}
                 alt={step.image_alt ?? step.title ?? 'Process step image'}
@@ -249,9 +249,15 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
 }
 
 function ProcessStepsSection({ content }: { content: ProcessStepsContent }) {
+    const items = Array.isArray(content.items)
+        ? content.items
+        : Object.entries(content.items ?? {})
+              .sort(([left], [right]) => Number(left) - Number(right))
+              .map(([, step]) => step);
+
     return (
         <section className="max-w-7xl mx-auto px-8 space-y-32">
-            {content.items.map((step, index) => (
+            {items.map((step, index) => (
                 <ProcessStepItem key={step.number ?? `step-${index}`} step={step} index={index} />
             ))}
         </section>

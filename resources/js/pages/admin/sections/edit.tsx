@@ -65,28 +65,45 @@ export default function AdminSectionsEdit({
         patch(admin.pages.sections.update({ page, section }).url);
     }
 
+    function isArrayIndex(segment: string): boolean {
+        return /^\d+$/.test(segment);
+    }
+
     function setNestedValue(target: Record<string, unknown>, path: string, value: string): Record<string, unknown> {
-        const cloned = structuredClone(target);
+        const cloned = structuredClone(target) as Record<string, unknown>;
         const segments = path.split('.').filter(Boolean);
 
         if (segments.length === 0) {
             return cloned;
         }
 
-        let cursor: Record<string, unknown> = cloned;
+        let cursor: Record<string, unknown> | unknown[] = cloned;
 
         for (let i = 0; i < segments.length - 1; i++) {
             const key = segments[i];
-            const next = cursor[key];
+            const nextKey = segments[i + 1];
+            const next = Array.isArray(cursor) ? cursor[Number(key)] : cursor[key];
 
-            if (typeof next !== 'object' || next === null || Array.isArray(next)) {
-                cursor[key] = {};
+            if (typeof next !== 'object' || next === null) {
+                const replacement: Record<string, unknown> | unknown[] = isArrayIndex(nextKey) ? [] : {};
+
+                if (Array.isArray(cursor)) {
+                    cursor[Number(key)] = replacement;
+                } else {
+                    cursor[key] = replacement;
+                }
             }
 
-            cursor = cursor[key] as Record<string, unknown>;
+            cursor = (Array.isArray(cursor) ? cursor[Number(key)] : cursor[key]) as Record<string, unknown> | unknown[];
         }
 
-        cursor[segments[segments.length - 1]] = value;
+        const finalKey = segments[segments.length - 1];
+
+        if (Array.isArray(cursor) && isArrayIndex(finalKey)) {
+            cursor[Number(finalKey)] = value;
+        } else if (!Array.isArray(cursor)) {
+            cursor[finalKey] = value;
+        }
 
         return cloned;
     }
