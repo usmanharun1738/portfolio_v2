@@ -55,6 +55,8 @@ interface ProcessStep {
     description: string;
     deliverables: string[];
     tools: string[];
+    image_url?: string;
+    image_alt?: string;
     tech_columns?: TechColumn[];
     stat_card?: StatCard;
     deploy_tech?: DeployTech[];
@@ -96,6 +98,30 @@ function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
     );
 }
 
+function ProcessStepImage({ step }: { step: ProcessStep }) {
+    if (!step.image_url) {
+        return (
+            <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
+                <div className="w-full h-full flex items-center justify-center">
+                    <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
+                </div>
+                <div className="absolute inset-0 bg-linear-to-t from-surface-container-low via-transparent to-transparent"></div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
+            <img
+                src={step.image_url}
+                alt={step.image_alt ?? step.title}
+                className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent"></div>
+        </div>
+    );
+}
+
 function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) {
     const isEven = index % 2 === 0;
 
@@ -109,6 +135,9 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
                     <div className="relative z-10 pt-8">
                         <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">{step.title}</h2>
                         <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">{step.description}</p>
+                        <div className="mb-12">
+                            <ProcessStepImage step={step} />
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {step.tech_columns.map((col) => (
                                 <div key={col.title} className="group bg-surface-container-lowest p-8 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default text-center">
@@ -136,6 +165,9 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
                 </div>
                 <h2 className="font-display text-4xl font-extrabold -mt-16">{step.title}</h2>
                 <p className="text-xl text-on-surface/70">{step.description}</p>
+                <div className="mx-auto w-full max-w-3xl">
+                    <ProcessStepImage step={step} />
+                </div>
                 <div className="flex flex-wrap justify-center gap-12 pt-8">
                     {step.deploy_tech.map((tech) => (
                         <div key={tech.name} className="text-center">
@@ -192,12 +224,7 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
                 </div>
             </div>
             <div className={`md:col-span-7${isEven ? '' : ' order-2 md:order-1'}`}>
-                <div className="bg-surface-container-low rounded-3xl overflow-hidden aspect-video relative group">
-                    <div className="w-full h-full flex items-center justify-center">
-                        <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent"></div>
-                </div>
+                <ProcessStepImage step={step} />
             </div>
         </div>
     );
@@ -245,10 +272,12 @@ function ProcessPhilosophySection({ content }: { content: ProcessPhilosophyConte
 
 function renderSection(section: Section) {
     const c = section.content;
+
     switch (section.type) {
         case 'process_hero':        return <ProcessHeroSection key={section.id} content={c as unknown as ProcessHeroContent} />;
         case 'process_steps':       return <ProcessStepsSection key={section.id} content={c as unknown as ProcessStepsContent} />;
         case 'process_philosophy':  return <ProcessPhilosophySection key={section.id} content={c as unknown as ProcessPhilosophyContent} />;
+
         default:                    return null;
     }
 }
