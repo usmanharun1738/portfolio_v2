@@ -252,8 +252,8 @@ function ProcessStepsSection({ content }: { content: ProcessStepsContent }) {
     const items = Array.isArray(content.items)
         ? content.items
         : Object.entries(content.items ?? {})
-              .sort(([left], [right]) => Number(left) - Number(right))
-              .map(([, step]) => step);
+            .sort(([left], [right]) => Number(left) - Number(right))
+            .map(([, step]) => step);
 
     return (
         <section className="max-w-7xl mx-auto px-8 space-y-32">
