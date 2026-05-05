@@ -434,14 +434,14 @@ export default function Welcome({
                     <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-8 py-12 md:flex-row">
                         <div className="font-display text-lg font-black tracking-tight text-on-surface">ARTISAN</div>
                         <div className="font-mono text-center text-[10px] tracking-widest uppercase md:text-left">
-                            © 2024 Precision Artisan Portfolio. Built for performance.
+                            © 2026 The Artisan Stack . Built for performance.
                         </div>
                         <div className="flex gap-6">
-                            {(['LinkedIn', 'GitHub', 'Twitter', 'Dribbble'] as const).map((social) => (
+                            {(['LinkedIn', 'GitHub', 'Twitter'] as const).map((social) => (
                                 <a
                                     key={social}
                                     className="font-mono text-[10px] tracking-widest text-on-surface/50 uppercase transition-colors hover:text-primary"
-                                    href="#"
+                                    href="https://github.com/usmanharun1738"
                                 >
                                     {social}
                                 </a>

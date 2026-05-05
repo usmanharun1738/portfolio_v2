@@ -201,19 +201,21 @@ export default function AdminSectionsEdit({
                                 Choose Media
                             </button>
                         </div>
-                        <div className="mt-2 flex flex-wrap items-center gap-2">
-                            <span className="text-[11px] text-on-surface-variant">Process step image key:</span>
-                            {PROCESS_STEP_IMAGE_KEYS.map((item) => (
-                                <button
-                                    key={item.path}
-                                    type="button"
-                                    onClick={() => setMediaKeyPath(item.path)}
-                                    className="rounded-md border border-outline-variant bg-surface px-2 py-1 font-mono text-[11px] hover:bg-surface-container"
-                                >
-                                    {item.label}
-                                </button>
-                            ))}
-                        </div>
+                        {section.type === 'process_steps' && (
+                            <div className="mt-2 flex flex-wrap items-center gap-2">
+                                <span className="text-[11px] text-on-surface-variant">Process step image key:</span>
+                                {PROCESS_STEP_IMAGE_KEYS.map((item) => (
+                                    <button
+                                        key={item.path}
+                                        type="button"
+                                        onClick={() => setMediaKeyPath(item.path)}
+                                        className="rounded-md border border-outline-variant bg-surface px-2 py-1 font-mono text-[11px] hover:bg-surface-container"
+                                    >
+                                        {item.label}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <label className="flex items-center gap-2 text-sm">
