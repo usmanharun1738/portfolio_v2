@@ -173,10 +173,10 @@ function ResumeExperienceSection({ content }: { content: ResumeExperienceContent
 
 function ResumeSkillsSection({ content }: { content: ResumeSkillsContent }) {
     const groups = [
-        { label: 'Languages',   items: content.languages,   specialty: false },
-        { label: 'Frameworks',  items: content.frameworks,  specialty: false },
-        { label: 'Mobile',      items: content.mobile,      specialty: false },
-        { label: 'Specialties', items: content.specialties, specialty: true  },
+        { label: 'Languages', items: content.languages, specialty: false },
+        { label: 'Frameworks', items: content.frameworks, specialty: false },
+        { label: 'Mobile', items: content.mobile, specialty: false },
+        { label: 'Specialties', items: content.specialties, specialty: true },
     ];
 
     return (

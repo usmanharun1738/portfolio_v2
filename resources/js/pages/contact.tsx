@@ -147,7 +147,7 @@ function renderSection(section: Section) {
     switch (section.type) {
         case 'contact_hero': return <ContactHeroSection key={section.id} content={c as unknown as ContactHeroContent} />;
         case 'contact_info': return <ContactInfoSection key={section.id} content={c as unknown as ContactInfoContent} />;
-        default:             return null;
+        default: return null;
     }
 }
 
