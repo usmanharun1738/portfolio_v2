@@ -39,7 +39,7 @@ class ContactPageSeeder extends Seeder
                 'name' => 'Contact Info',
                 'sort_order' => 1,
                 'content' => [
-                    'email' => 'hello@usmanharuna.pro',
+                    'email' => 'usmanharun.info@gmail.com',
                     'github_url' => '#',
                     'linkedin_url' => '#',
                 ],

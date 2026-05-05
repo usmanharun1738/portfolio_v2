@@ -33,7 +33,7 @@ class HomepageSeeder extends Seeder
                     'tags' => ['Web Developer', 'Mobile App Developer', 'AI Enthusiast'],
                     'bio' => "Crafting high-performance digital ecosystems with an artisan's touch. Specializing in technical precision and editorial-grade user experiences.",
                     'cta_primary' => ['label' => 'View Portfolio', 'href' => '#projects'],
-                    'cta_secondary' => ['label' => 'The Process', 'href' => '#process'],
+                    'cta_secondary' => ['label' => "Let's Talk", 'href' => '#contact'],
                     'hero_image' => '/hero-img.png',
                     'status_card' => ['label' => 'SYSTEM_STATUS', 'value' => 'Optimized'],
                     'watermark' => 'PRECISION',
