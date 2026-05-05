@@ -42,16 +42,17 @@ interface ContactInfoContent {
 
 function ContactHeroSection({ content }: { content: ContactHeroContent }) {
     const [headingMain, headingHighlight] = content.heading.includes(' ') ? [content.heading.split(' ').slice(0, -1).join(' '), content.heading.split(' ').slice(-1)[0]] : [content.heading, ''];
+
     return (
-        <section className="mb-20 relative">
+        <section className="relative mb-16 sm:mb-20">
             <div className="max-w-3xl">
                 <label className="font-label text-primary uppercase tracking-[0.2em] text-[11px] mb-4 block">
                     {content.availability_label}
                 </label>
-                <h1 className="font-display text-5xl md:text-7xl font-bold text-on-surface tracking-tight leading-[1.1] mb-8">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-on-surface tracking-tight leading-[1.1] mb-8">
                     {headingMain} <span className="text-primary">{headingHighlight}</span>
                 </h1>
-                <p className="font-body text-xl text-secondary max-w-xl leading-relaxed">{content.subheading}</p>
+                <p className="font-body text-lg sm:text-xl text-secondary max-w-xl leading-relaxed">{content.subheading}</p>
             </div>
             <div className="absolute top-0 right-0 hidden lg:block opacity-10 pointer-events-none">
                 <svg className="w-96" viewBox="0 0 200 200" fill="currentColor">
@@ -66,9 +67,9 @@ function ContactHeroSection({ content }: { content: ContactHeroContent }) {
 
 function ContactInfoSection({ content }: { content: ContactInfoContent }) {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-16 lg:gap-24 items-start">
             {/* Contact Form (static/functional) */}
-            <div className="lg:col-span-7 bg-surface-container-low rounded-xl p-8 md:p-12 transition-all hover:bg-surface-container">
+            <div className="lg:col-span-7 bg-surface-container-low rounded-xl p-6 sm:p-8 md:p-12 transition-all hover:bg-surface-container">
                 <form className="space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2">
@@ -88,7 +89,7 @@ function ContactInfoSection({ content }: { content: ContactInfoContent }) {
                         <label className="font-label text-[10px] uppercase tracking-widest text-secondary font-medium" htmlFor="message">Message</label>
                         <textarea className="w-full bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary rounded-lg py-4 px-5 text-on-surface placeholder:text-outline-variant transition-all resize-none" id="message" placeholder="How can I help you?" rows={6} />
                     </div>
-                    <button className="group flex items-center justify-center gap-3 w-full md:w-auto bg-gradient-to-r from-primary to-primary-container text-white font-label text-xs uppercase tracking-[0.2em] px-10 py-5 rounded-lg shadow-lg shadow-primary/10 hover:shadow-primary/25 active:scale-[0.98] transition-all" type="submit">
+                    <button className="group flex items-center justify-center gap-3 w-full md:w-auto bg-linear-to-r from-primary to-primary-container text-white font-label text-xs uppercase tracking-[0.2em] px-10 py-5 rounded-lg shadow-lg shadow-primary/10 hover:shadow-primary/25 active:scale-[0.98] transition-all" type="submit">
                         Send Message
                         <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </button>
@@ -96,7 +97,7 @@ function ContactInfoSection({ content }: { content: ContactInfoContent }) {
             </div>
 
             {/* Sidebar Info */}
-            <aside className="lg:col-span-5 space-y-16">
+            <aside className="lg:col-span-5 space-y-10 sm:space-y-16">
                 <div>
                     <h3 className="font-display text-2xl font-bold mb-6">Contact Details</h3>
                     <div className="space-y-6">
@@ -142,6 +143,7 @@ function ContactInfoSection({ content }: { content: ContactInfoContent }) {
 
 function renderSection(section: Section) {
     const c = section.content;
+
     switch (section.type) {
         case 'contact_hero': return <ContactHeroSection key={section.id} content={c as unknown as ContactHeroContent} />;
         case 'contact_info': return <ContactInfoSection key={section.id} content={c as unknown as ContactInfoContent} />;
@@ -169,17 +171,17 @@ export default function Contact({ page, sections }: { page: PageData | null; sec
                 activeItem="contact"
             />
 
-            <main className="pt-32 pb-24 px-6 md:px-12 max-w-screen-2xl mx-auto">
+            <main className="mx-auto max-w-screen-2xl px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 md:px-12 md:pt-32 md:pb-24">
                 {sections.map(renderSection)}
             </main>
 
             {/* Footer */}
-            <footer className="bg-slate-50 dark:bg-slate-950 w-full py-12 px-8">
+            <footer className="bg-slate-50 dark:bg-slate-950 w-full px-4 py-12 sm:px-8">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 max-w-screen-2xl mx-auto border-t border-slate-200/50 dark:border-slate-800/50 pt-12">
                     <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500">
                         © 2024 Artisan Developer. Built with precision.
                     </div>
-                    <div className="flex gap-8">
+                    <div className="flex flex-wrap justify-center gap-5 sm:gap-8">
                         <a className="font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition-colors hover:translate-x-1 duration-200" href="#">Twitter</a>
                         <a className="font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition-colors hover:translate-x-1 duration-200" href="#">GitHub</a>
                         <a className="font-mono text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition-colors hover:translate-x-1 duration-200" href="#">LinkedIn</a>

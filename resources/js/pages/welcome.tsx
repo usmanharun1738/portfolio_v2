@@ -94,33 +94,33 @@ interface ContactContent {
 
 function HeroSection({ content }: { content: HeroContent }) {
     return (
-        <section id="home" className="relative flex min-h-screen items-center overflow-hidden bg-surface pt-20">
-            <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-12">
+        <section id="home" className="relative flex min-h-screen items-center overflow-hidden bg-surface pb-12 pt-24 sm:pb-0 sm:pt-28">
+            <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-12">
                 <div className="z-10 lg:col-span-7">
                     <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">
                         {content.eyebrow}
                     </p>
-                    <h1 className="font-display mb-8 text-6xl leading-[0.9] font-bold tracking-tight text-on-surface md:text-8xl">
+                    <h1 className="font-display mb-8 text-5xl leading-[0.9] font-bold tracking-tight text-on-surface sm:text-6xl md:text-8xl">
                         {content.heading.split('\n').map((line, i) => (
                             <span key={i}>{line}{i < content.heading.split('\n').length - 1 && <br />}</span>
                         ))}
                     </h1>
-                    <div className="mb-10 flex flex-wrap gap-4">
+                    <div className="mb-8 flex flex-wrap gap-2 sm:mb-10 sm:gap-4">
                         {content.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="rounded-full bg-surface-container-low px-4 py-1 font-mono text-[10px] tracking-widest text-on-surface-variant uppercase"
+                                className="rounded-full bg-surface-container-low px-3 py-1 font-mono text-[10px] tracking-widest text-on-surface-variant uppercase sm:px-4"
                             >
                                 {tag}
                             </span>
                         ))}
                     </div>
-                    <p className="mb-12 max-w-xl text-xl leading-relaxed text-on-surface-variant">
+                    <p className="mb-10 max-w-xl text-lg leading-relaxed text-on-surface-variant sm:mb-12 sm:text-xl">
                         {content.bio}
                     </p>
-                    <div className="flex items-center gap-8">
+                    <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8">
                         <a
-                            className="rounded-lg bg-primary px-8 py-4 text-sm font-bold tracking-tight text-on-primary transition-all hover:shadow-xl hover:shadow-primary/20"
+                            className="rounded-lg bg-primary px-7 py-3.5 text-sm font-bold tracking-tight text-on-primary transition-all hover:shadow-xl hover:shadow-primary/20 sm:px-8 sm:py-4"
                             href={content.cta_primary.href}
                         >
                             {content.cta_primary.label}
@@ -136,7 +136,7 @@ function HeroSection({ content }: { content: HeroContent }) {
                 </div>
 
                 <div className="relative lg:col-span-5">
-                    <div className="relative aspect-4/5 w-full rotate-2 overflow-hidden rounded-2xl shadow-2xl transition-transform duration-700 hover:rotate-0">
+                    <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl shadow-2xl transition-transform duration-700 sm:rotate-2 hover:rotate-0">
                         <img src={content.hero_image} alt="Artisan Showcase" className="h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-linear-to-t from-on-surface/40 to-transparent" />
                     </div>
@@ -150,7 +150,7 @@ function HeroSection({ content }: { content: HeroContent }) {
                 </div>
             </div>
 
-            <div className="pointer-events-none absolute -bottom-24 select-none text-[20rem] font-bold text-on-surface/3">
+            <div className="pointer-events-none absolute -bottom-14 select-none text-[8rem] font-bold text-on-surface/3 sm:-bottom-24 sm:text-[20rem]">
                 {content.watermark}
             </div>
         </section>
@@ -161,9 +161,9 @@ function ProjectsSection({ content, featuredProjects }: { content: ProjectsConte
     const [first, ...rest] = featuredProjects;
 
     return (
-        <section id="projects" className="bg-surface-container-low py-32">
-            <div className="mx-auto w-full max-w-7xl px-6">
-                <div className="mb-20 flex flex-col items-end justify-between gap-6 md:flex-row">
+        <section id="projects" className="bg-surface-container-low py-20 sm:py-24 md:py-32">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+                <div className="mb-14 flex flex-col items-start justify-between gap-6 md:mb-20 md:flex-row md:items-end">
                     <div>
                         <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">
                             {content.eyebrow}
@@ -180,12 +180,12 @@ function ProjectsSection({ content, featuredProjects }: { content: ProjectsConte
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
                     {first && (
-                        <div className={`group relative ${first.home_height ?? 'h-100'} overflow-hidden rounded-2xl bg-surface-container md:col-span-${first.home_span ?? 8}`}>
+                        <div className={`group relative h-88 md:${first.home_height ?? 'h-100'} overflow-hidden rounded-2xl bg-surface-container md:col-span-${first.home_span ?? 8}`}>
                             {first.image_url && (
                                 <img src={first.image_url} alt={first.title} className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
                             )}
                             <div className="absolute inset-0 bg-linear-to-t from-on-surface via-on-surface/20 to-transparent opacity-80" />
-                            <div className="absolute bottom-0 w-full p-10">
+                            <div className="absolute bottom-0 w-full p-6 sm:p-10">
                                 <span className="mb-4 block font-mono text-[10px] tracking-[0.2em] text-primary-fixed uppercase">{first.category}</span>
                                 <h3 className="font-display mb-4 text-3xl font-bold tracking-tight text-on-primary-container">{first.title}</h3>
                                 {first.description && (
@@ -195,12 +195,12 @@ function ProjectsSection({ content, featuredProjects }: { content: ProjectsConte
                         </div>
                     )}
                     {rest.map((item) => (
-                        <div key={item.id} className={`group relative ${item.home_height ?? 'h-100'} overflow-hidden rounded-2xl bg-surface-container md:col-span-${item.home_span ?? 4}`}>
+                        <div key={item.id} className={`group relative h-80 md:${item.home_height ?? 'h-100'} overflow-hidden rounded-2xl bg-surface-container md:col-span-${item.home_span ?? 4}`}>
                             {item.image_url && (
                                 <img src={item.image_url} alt={item.title} className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" />
                             )}
                             <div className="absolute inset-0 bg-on-surface/40 transition-colors group-hover:bg-on-surface/20" />
-                            <div className="absolute inset-0 flex flex-col justify-end p-10">
+                            <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10">
                                 <span className="mb-2 font-mono text-[10px] tracking-[0.2em] text-white uppercase">{item.category}</span>
                                 <h3 className="font-display text-2xl font-bold tracking-tight text-white">{item.title}</h3>
                             </div>
@@ -214,14 +214,14 @@ function ProjectsSection({ content, featuredProjects }: { content: ProjectsConte
 
 function StackSection({ content }: { content: StackContent }) {
     return (
-        <section id="stack" className="bg-surface py-32">
-            <div className="mx-auto w-full max-w-7xl px-6">
-                <div className="grid grid-cols-1 gap-20 lg:grid-cols-2">
+        <section id="stack" className="bg-surface py-20 sm:py-24 md:py-32">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+                <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
                     <div>
                         <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">{content.eyebrow}</p>
-                        <h2 className="font-display mb-8 text-5xl leading-tight font-bold tracking-tight text-on-surface">{content.heading}</h2>
-                        <p className="mb-10 text-lg leading-relaxed text-on-surface-variant">{content.bio}</p>
-                        <div className="grid grid-cols-2 gap-8">
+                        <h2 className="font-display mb-8 text-4xl leading-tight font-bold tracking-tight text-on-surface sm:text-5xl">{content.heading}</h2>
+                        <p className="mb-10 text-base leading-relaxed text-on-surface-variant sm:text-lg">{content.bio}</p>
+                        <div className="grid grid-cols-2 gap-6 sm:gap-8">
                             {content.stats.map((stat) => (
                                 <div key={stat.label}>
                                     <div className="mb-1 text-4xl font-bold text-primary">{stat.value}</div>
@@ -233,7 +233,7 @@ function StackSection({ content }: { content: StackContent }) {
 
                     <div className="grid grid-cols-1 gap-4">
                         {content.skill_groups.map((group) => (
-                            <div key={group.name} className="group rounded-xl bg-surface-container-low p-8 transition-colors hover:bg-surface-container">
+                            <div key={group.name} className="group rounded-xl bg-surface-container-low p-6 transition-colors hover:bg-surface-container sm:p-8">
                                 <div className="mb-4 flex items-center justify-between">
                                     <h4 className="font-display text-xl font-bold text-on-surface">{group.name}</h4>
                                     <span className="material-symbols-outlined text-primary transition-transform group-hover:rotate-45">{group.icon}</span>
@@ -254,15 +254,15 @@ function StackSection({ content }: { content: StackContent }) {
 
 function ProcessSection({ content }: { content: ProcessContent }) {
     return (
-        <section id="process" className="relative overflow-hidden bg-surface-container-low py-32 text-background">
-            <div className="relative z-10 mx-auto w-full max-w-7xl px-6">
+        <section id="process" className="relative overflow-hidden bg-surface-container-low py-20 text-background sm:py-24 md:py-32">
+            <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6">
                 <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">{content.eyebrow}</p>
-                <h2 className="font-display mb-20 text-4xl font-bold tracking-tight text-on-surface md:text-6xl">{content.heading}</h2>
+                <h2 className="font-display mb-14 text-4xl font-bold tracking-tight text-on-surface sm:mb-20 md:text-6xl">{content.heading}</h2>
 
                 <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
                     {content.steps.map((step) => (
                         <div key={step.number} className="relative">
-                            <span className="font-display absolute -top-12 -left-6 text-8xl font-bold text-on-secondary-container/30">
+                            <span className="font-display absolute -top-8 -left-2 text-6xl font-bold text-on-secondary-container/30 sm:-top-12 sm:-left-6 sm:text-8xl">
                                 {step.number}
                             </span>
                             <div className="relative">
@@ -273,15 +273,15 @@ function ProcessSection({ content }: { content: ProcessContent }) {
                     ))}
                 </div>
             </div>
-            <div className="absolute -top-64 -right-64 h-150 w-150 rounded-full border border-primary/20 opacity-20" />
+            <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full border border-primary/20 opacity-20 sm:-top-64 sm:-right-64 sm:h-150 sm:w-150" />
         </section>
     );
 }
 
 function TestimonialsSection({ content }: { content: TestimonialsContent }) {
     return (
-        <section id="social-proof" className="bg-surface py-32">
-            <div className="mx-auto w-full max-w-7xl px-6">
+        <section id="social-proof" className="bg-surface py-20 sm:py-24 md:py-32">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
                 <div className="mb-16">
                     <p className="mb-4 font-mono text-[10px] tracking-[0.2em] text-primary uppercase">{content.eyebrow}</p>
                     <h2 className="font-display mb-4 text-4xl font-bold tracking-tight text-on-surface md:text-5xl">{content.heading}</h2>
@@ -292,7 +292,7 @@ function TestimonialsSection({ content }: { content: TestimonialsContent }) {
                     {content.items.map((t) => (
                         <article
                             key={`${t.name}-${t.company}`}
-                            className="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-8 shadow-sm"
+                            className="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-6 shadow-sm sm:p-8"
                         >
                             <div className="mb-6 flex items-start justify-between">
                                 <span className="material-symbols-outlined text-3xl text-primary/30">format_quote</span>
@@ -314,12 +314,12 @@ function TestimonialsSection({ content }: { content: TestimonialsContent }) {
 
 function ContactSection({ content }: { content: ContactContent }) {
     return (
-        <section id="contact" className="bg-background py-32">
-            <div className="mx-auto w-full max-w-7xl px-6">
+        <section id="contact" className="bg-background py-20 sm:py-24 md:py-32">
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
                 <div className="relative overflow-hidden rounded-3xl bg-surface-container-low p-8 md:p-20">
-                    <div className="grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
+                    <div className="grid grid-cols-1 items-center gap-12 md:gap-16 lg:grid-cols-2 lg:gap-20">
                         <div>
-                            <h2 className="font-display mb-6 text-5xl font-bold tracking-tight text-on-surface">{content.heading}</h2>
+                            <h2 className="font-display mb-6 text-4xl font-bold tracking-tight text-on-surface sm:text-5xl">{content.heading}</h2>
                             <p className="mb-10 text-lg text-on-surface-variant">{content.subtitle}</p>
 
                             <div className="mb-10 space-y-6">
@@ -368,6 +368,7 @@ function ContactSection({ content }: { content: ContactContent }) {
 
 function SectionRenderer({ section, featuredProjects }: { section: Section; featuredProjects: FeaturedProject[] }) {
     const c = section.content;
+
     switch (section.type) {
         case 'hero': return <HeroSection content={c as unknown as HeroContent} />;
         case 'projects': return <ProjectsSection content={c as unknown as ProjectsContent} featuredProjects={featuredProjects} />;

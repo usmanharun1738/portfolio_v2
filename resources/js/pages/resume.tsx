@@ -80,12 +80,12 @@ interface ResumeCertificationsContent {
 
 function ResumeHeroSection({ content }: { content: ResumeHeroContent }) {
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
+        <section className="mb-16 grid grid-cols-1 gap-10 lg:grid-cols-12 md:mb-24">
             <div className="lg:col-span-8">
                 <span className="font-label text-[10px] uppercase tracking-[0.2em] text-primary mb-4 block font-medium">
                     {content.availability_label}
                 </span>
-                <h1 className="font-display text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-6">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-6">
                     {content.heading.split('Intelligence').map((part, i, arr) => (
                         <span key={i}>{part}{i < arr.length - 1 && <span className="text-primary italic">Intelligence</span>}</span>
                     ))}
@@ -97,7 +97,7 @@ function ResumeHeroSection({ content }: { content: ResumeHeroContent }) {
                 </div>
             </div>
             <div className="lg:col-span-4 flex flex-col justify-end">
-                <div className="space-y-4 bg-surface-container-low p-8 rounded-xl border border-outline-variant/10">
+                <div className="space-y-4 rounded-xl border border-outline-variant/10 bg-surface-container-low p-6 sm:p-8">
                     <a className="flex items-center gap-3 group" href={`mailto:${content.email}`}>
                         <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
                             <span className="material-symbols-outlined">mail</span>
@@ -124,13 +124,13 @@ function ResumeHeroSection({ content }: { content: ResumeHeroContent }) {
 
 function ResumeSummarySection({ content }: { content: ResumeSummaryContent }) {
     return (
-        <section className="mb-24">
+        <section className="mb-16 md:mb-24">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div className="lg:col-span-4">
                     <h2 className="font-display text-2xl font-bold tracking-tight text-on-surface">Professional Summary</h2>
                 </div>
                 <div className="lg:col-span-8">
-                    <p className="text-xl md:text-2xl text-on-secondary-container leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: content.body }} />
+                    <p className="text-lg sm:text-xl md:text-2xl text-on-secondary-container leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: content.body }} />
                 </div>
             </div>
         </section>
@@ -143,13 +143,13 @@ function ResumeExperienceSection({ content }: { content: ResumeExperienceContent
             <div>
                 <h3 className="font-label text-[11px] uppercase tracking-widest text-primary mb-12 font-bold flex items-center gap-4">
                     Professional Experience & Projects
-                    <div className="h-px bg-outline-variant/30 flex-grow"></div>
+                    <div className="h-px grow bg-outline-variant/30"></div>
                 </h3>
                 <div className="space-y-12">
                     {content.items.map((item) => (
                         <div key={item.title} className="group relative">
                             <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
-                                <h4 className="text-2xl font-bold text-on-surface group-hover:text-primary transition-colors">{item.title}</h4>
+                                <h4 className="text-xl sm:text-2xl font-bold text-on-surface group-hover:text-primary transition-colors">{item.title}</h4>
                                 <span className="font-label text-xs text-on-secondary-container">{item.dates}</span>
                             </div>
                             <p className="text-on-secondary-container mb-6 leading-relaxed max-w-2xl">{item.description}</p>
@@ -178,6 +178,7 @@ function ResumeSkillsSection({ content }: { content: ResumeSkillsContent }) {
         { label: 'Mobile',      items: content.mobile,      specialty: false },
         { label: 'Specialties', items: content.specialties, specialty: true  },
     ];
+
     return (
         <div className="space-y-8">
             <h3 className="font-label text-[11px] uppercase tracking-widest text-primary mb-8 font-bold">Technical Arsenal</h3>
@@ -241,7 +242,7 @@ function renderMainLayout(sections: Section[]) {
         <>
             {heroSection && <ResumeHeroSection content={heroSection.content as unknown as ResumeHeroContent} />}
             {summarySection && <ResumeSummarySection content={summarySection.content as unknown as ResumeSummaryContent} />}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20">
                 {experienceSection && <ResumeExperienceSection content={experienceSection.content as unknown as ResumeExperienceContent} />}
                 <div className="lg:col-span-4 space-y-16">
                     {skillsSection && <ResumeSkillsSection content={skillsSection.content as unknown as ResumeSkillsContent} />}
@@ -273,19 +274,19 @@ export default function Resume({ page, sections }: { page: PageData | null; sect
                 activeItem="resume"
             />
 
-            <main className="max-w-7xl mx-auto px-8 py-12 md:py-20">
+            <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 md:py-20">
                 {renderMainLayout(sections)}
             </main>
 
             {/* Footer */}
-            <footer className="w-full border-t border-[#e8bcb6]/15 bg-[#f9f9ff] dark:bg-slate-950 mt-20">
-                <div className="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 py-12">
+            <footer className="mt-20 w-full border-t border-outline-variant/15 bg-[#f9f9ff] dark:bg-slate-950">
+                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between px-4 py-12 sm:px-6 lg:px-8 md:flex-row">
                     <div className="mb-6 md:mb-0">
                         <span className="font-label uppercase tracking-widest text-[10px] text-slate-500">
                             © 2024 Usman Haruna. Built with Precision Artisan.
                         </span>
                     </div>
-                    <div className="flex gap-8">
+                    <div className="flex flex-wrap justify-center gap-5 sm:gap-8">
                         <a className="font-label uppercase tracking-widest text-[10px] text-slate-500 hover:text-[#bc0003] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-all" href="#">GitHub</a>
                         <a className="font-label uppercase tracking-widest text-[10px] text-slate-500 hover:text-[#bc0003] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-all" href="#">LinkedIn</a>
                         <a className="font-label uppercase tracking-widest text-[10px] text-slate-500 hover:text-[#bc0003] underline-offset-4 hover:underline opacity-80 hover:opacity-100 transition-all" href="#">Email</a>

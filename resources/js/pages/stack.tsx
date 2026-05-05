@@ -91,18 +91,18 @@ interface StackCtaContent {
 
 function StackHeroSection({ content }: { content: StackHeroContent }) {
     return (
-        <section className="max-w-screen-2xl mx-auto px-8 mb-24">
-            <div className="flex flex-col md:flex-row gap-12 items-end">
+        <section className="max-w-screen-2xl mx-auto mb-16 px-4 sm:px-6 lg:px-8 md:mb-24">
+            <div className="flex flex-col items-start gap-10 md:flex-row md:items-end md:gap-12">
                 <div className="flex-1">
                     <span className="font-label text-[11px] uppercase tracking-[0.2em] text-primary mb-4 block">
                         {content.eyebrow}
                     </span>
-                    <h1 className="text-6xl md:text-8xl font-display font-black tracking-tighter leading-[0.9] text-on-surface mb-8">
+                    <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black tracking-tighter leading-[0.9] text-on-surface mb-8">
                         {content.heading.split('\n').map((line, i, arr) => (
                             <span key={i}>{i === 0 ? line : <><br /><span className="text-primary-container">{line}</span></>}{i < arr.length - 1 && i > 0 ? '' : ''}</span>
                         ))}
                     </h1>
-                    <p className="text-xl text-on-surface/70 max-w-xl font-light leading-relaxed">
+                    <p className="text-base sm:text-xl text-on-surface/70 max-w-xl font-light leading-relaxed">
                         {content.bio}
                     </p>
                 </div>
@@ -122,32 +122,32 @@ function StackHeroSection({ content }: { content: StackHeroContent }) {
 
 function StackLanguagesSection({ content }: { content: StackLanguagesContent }) {
     return (
-        <section className="max-w-screen-2xl mx-auto px-8 mb-32">
+        <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 sm:mb-24 md:mb-32">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <div className="md:col-span-8 bg-surface-container-low p-12 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-colors duration-500">
+                <div className="md:col-span-8 bg-surface-container-low p-6 sm:p-8 md:p-12 rounded-xl flex flex-col justify-between group hover:bg-surface-container transition-colors duration-500">
                     <div>
                         <span className="font-label text-[10px] uppercase tracking-widest text-on-surface/40 mb-2 block">
                             {content.label}
                         </span>
-                        <h2 className="text-4xl font-display font-bold tracking-tight mb-6">
+                        <h2 className="text-3xl sm:text-4xl font-display font-bold tracking-tight mb-6">
                             {content.heading}
                         </h2>
                     </div>
-                    <div className="flex flex-wrap gap-12 mt-12">
+                    <div className="mt-10 flex flex-wrap gap-6 sm:gap-10 md:mt-12 md:gap-12">
                         {content.items.map((item) => (
                             <div key={item.number} className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
                                     <i className={`${item.icon_class} text-xl`}></i>
                                     <span className="font-label text-sm text-primary">{item.number}. {item.name}</span>
                                 </div>
-                                <div className="h-0.5 w-48 bg-surface-dim overflow-hidden">
+                                <div className="h-0.5 w-full max-w-48 bg-surface-dim overflow-hidden">
                                     <div className="h-full bg-primary" style={{ width: `${item.proficiency}%` }}></div>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className="md:col-span-4 bg-primary p-12 rounded-xl text-white flex flex-col justify-center">
+                <div className="md:col-span-4 bg-primary p-6 sm:p-8 md:p-12 rounded-xl text-white flex flex-col justify-center">
                     <span className="material-symbols-outlined text-5xl mb-6">terminal</span>
                     <h3 className="text-2xl font-display font-bold mb-4">{content.artisan_card.heading}</h3>
                     <p className="font-light opacity-80 leading-relaxed">
@@ -161,8 +161,8 @@ function StackLanguagesSection({ content }: { content: StackLanguagesContent }) 
 
 function StackSkillsSection({ content }: { content: StackSkillsContent }) {
     return (
-        <section className="max-w-screen-2xl mx-auto px-8 mb-32">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 sm:mb-24 md:mb-32">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-16">
                 {content.categories.map((cat) => (
                     <div key={cat.label} className="flex flex-col border-t border-outline-variant/15 pt-8">
                         <span className="font-label text-[10px] uppercase tracking-widest text-primary mb-6">
@@ -186,17 +186,17 @@ function StackSkillsSection({ content }: { content: StackSkillsContent }) {
 
 function StackCertificationsSection({ content }: { content: StackCertificationsContent }) {
     return (
-        <section className="bg-surface-container-low py-32">
-            <div className="max-w-screen-2xl mx-auto px-8">
-                <div className="mb-16">
+        <section className="bg-surface-container-low py-20 sm:py-24 md:py-32">
+            <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="mb-12 sm:mb-16">
                     <span className="font-label text-[11px] uppercase tracking-widest text-on-surface/40 block mb-2">
                         {content.eyebrow}
                     </span>
-                    <h2 className="text-5xl font-display font-bold tracking-tight">{content.heading}</h2>
+                    <h2 className="text-4xl sm:text-5xl font-display font-bold tracking-tight">{content.heading}</h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
                     {content.items.map((cert) => (
-                        <div key={cert.title} className="bg-surface p-12 rounded-xl shadow-[0_12px_40px_rgba(21,28,39,0.06)] hover:-translate-y-2 transition-transform duration-300">
+                        <div key={cert.title} className="bg-surface p-6 sm:p-8 md:p-12 rounded-xl shadow-[0_12px_40px_rgba(21,28,39,0.06)] hover:-translate-y-2 transition-transform duration-300">
                             <span className="font-label text-[10px] text-primary mb-4 block">{cert.year} — {cert.issuer}</span>
                             <h4 className="text-xl font-bold font-display mb-4">{cert.title}</h4>
                             <p className="text-on-surface/60 text-sm leading-relaxed mb-6">{cert.description}</p>
@@ -213,17 +213,17 @@ function StackCertificationsSection({ content }: { content: StackCertificationsC
 
 function StackCtaSection({ content }: { content: StackCtaContent }) {
     return (
-        <section className="max-w-screen-2xl mx-auto px-8 mt-48 mb-24">
-            <div className="bg-[#151c27] rounded-3xl p-16 md:p-24 relative overflow-hidden flex flex-col items-center text-center">
+        <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 md:mt-48 mb-20 md:mb-24">
+            <div className="bg-[#151c27] rounded-3xl p-10 sm:p-16 md:p-24 relative overflow-hidden flex flex-col items-center text-center">
                 <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary via-transparent to-primary"></div>
+                    <div className="absolute inset-0 bg-linear-to-br from-primary via-transparent to-primary"></div>
                 </div>
-                <h2 className="text-4xl md:text-6xl font-display font-black text-white tracking-tighter mb-8 z-10">
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-display font-black text-white tracking-tighter mb-8 z-10">
                     {content.heading.split('\n').map((line, i, arr) => (
                         <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
                     ))}
                 </h2>
-                <p className="text-white/60 text-lg max-w-2xl mb-12 font-light leading-relaxed z-10">
+                <p className="text-white/60 text-base sm:text-lg max-w-2xl mb-12 font-light leading-relaxed z-10">
                     {content.body}
                 </p>
                 <a href={content.button.href} className="group bg-primary text-white font-display font-bold px-12 py-5 rounded-lg text-lg flex items-center gap-4 hover:bg-primary-container transition-all z-10">
@@ -237,6 +237,7 @@ function StackCtaSection({ content }: { content: StackCtaContent }) {
 
 function renderSection(section: Section) {
     const c = section.content;
+
     switch (section.type) {
         case 'stack_hero': return <StackHeroSection key={section.id} content={c as unknown as StackHeroContent} />;
         case 'stack_languages': return <StackLanguagesSection key={section.id} content={c as unknown as StackLanguagesContent} />;
@@ -267,17 +268,17 @@ export default function Stack({ page, sections }: { page: PageData | null; secti
                 activeItem="stack"
             />
 
-            <main className="pt-32 pb-24">
+            <main className="pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 md:pb-24">
                 {sections.map(renderSection)}
             </main>
 
             {/* Footer */}
-            <footer className="w-full py-12 bg-[#f0f3ff]">
-                <div className="flex flex-col md:flex-row justify-between items-center px-12 max-w-screen-2xl mx-auto">
+            <footer className="w-full py-12 bg-surface-container-low">
+                <div className="flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 lg:px-12 max-w-screen-2xl mx-auto">
                     <p className="font-label text-[11px] uppercase tracking-widest text-[#151c27]/40 text-center md:text-left mb-6 md:mb-0">
                         © 2024 Precision Artisan. Built with High-Performance Intent.
                     </p>
-                    <div className="flex gap-8">
+                    <div className="flex flex-wrap justify-center gap-5 sm:gap-8">
                         <a className="font-label text-[11px] uppercase tracking-widest text-[#151c27]/40 hover:text-[#bc0003] transition-all opacity-80 hover:opacity-100" href="#">
                             GitHub
                         </a>

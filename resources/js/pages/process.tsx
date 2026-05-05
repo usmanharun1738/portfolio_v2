@@ -99,17 +99,17 @@ function normalizeProcessStep(step: ProcessStep, index: number) {
 
 function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
     return (
-        <section className="max-w-7xl mx-auto px-8 mb-24">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 mb-16 md:mb-24">
             <div className="max-w-3xl">
                 <p className="font-label text-primary uppercase tracking-widest text-[0.6875rem] mb-4">
                     {content.eyebrow}
                 </p>
-                <h1 className="font-display text-5xl md:text-7xl font-extrabold text-on-surface mb-8 leading-[1.1]">
+                <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-extrabold text-on-surface mb-8 leading-[1.1]">
                     {content.heading.split('\n').map((part, i, arr) => (
                         <span key={i}>{i === 0 ? part : <span className="text-primary-container">{part}</span>}{i < arr.length - 1 ? ' ' : ''}</span>
                     ))}
                 </h1>
-                <p className="text-xl text-on-surface/70 leading-relaxed">{content.bio}</p>
+                <p className="text-lg sm:text-xl text-on-surface/70 leading-relaxed">{content.bio}</p>
             </div>
         </section>
     );
@@ -118,7 +118,7 @@ function ProcessHeroSection({ content }: { content: ProcessHeroContent }) {
 function ProcessStepImage({ step }: { step: ProcessStep }) {
     if (!step.image_url) {
         return (
-            <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-88">
+            <div className="relative h-56 w-full overflow-hidden rounded-3xl bg-surface-container-low sm:h-64 md:h-88">
                 <div className="w-full h-full flex items-center justify-center">
                     <span className="material-symbols-outlined text-5xl text-surface-variant">image_not_supported</span>
                 </div>
@@ -128,7 +128,7 @@ function ProcessStepImage({ step }: { step: ProcessStep }) {
     }
 
     return (
-        <div className="relative h-64 w-full overflow-hidden rounded-3xl bg-surface-container-low md:h-88">
+        <div className="relative h-56 w-full overflow-hidden rounded-3xl bg-surface-container-low sm:h-64 md:h-88">
             <img
                 src={step.image_url}
                 alt={step.image_alt ?? step.title ?? 'Process step image'}
@@ -145,14 +145,14 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
 
     if (normalizedStep.tech_columns.length > 0) {
         return (
-            <div className="relative p-12 md:p-20">
+            <div className="relative p-6 sm:p-10 md:p-20">
                 <div className="max-w-4xl mx-auto relative">
-                    <div className="pointer-events-none absolute -top-10 -left-6 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:-left-8 md:text-[10rem]">
+                    <div className="pointer-events-none absolute -top-8 -left-3 z-0 font-label text-[5rem] leading-none font-bold text-primary/20 select-none sm:-top-10 sm:-left-6 sm:text-[7rem] md:-top-12 md:-left-8 md:text-[10rem]">
                         {normalizedStep.number}
                     </div>
                     <div className="relative z-10 pt-8">
-                        <h2 className="font-display text-4xl md:text-5xl font-extrabold mb-8">{normalizedStep.title}</h2>
-                        <p className="text-xl text-on-surface/70 mb-12 leading-relaxed">{normalizedStep.description}</p>
+                        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold mb-8">{normalizedStep.title}</h2>
+                        <p className="text-lg sm:text-xl text-on-surface/70 mb-12 leading-relaxed">{normalizedStep.description}</p>
                         <div className="mb-12">
                             <ProcessStepImage step={normalizedStep} />
                         </div>
@@ -178,11 +178,11 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
     if (normalizedStep.deploy_tech.length > 0) {
         return (
             <div className="max-w-4xl mx-auto text-center space-y-8 relative">
-                <div className="pointer-events-none font-label text-[6rem] leading-none font-bold text-primary/20 select-none md:text-[8rem]">
+                <div className="pointer-events-none font-label text-[4.5rem] leading-none font-bold text-primary/20 select-none sm:text-[6rem] md:text-[8rem]">
                     {normalizedStep.number}
                 </div>
-                <h2 className="font-display text-4xl font-extrabold -mt-16">{normalizedStep.title}</h2>
-                <p className="text-xl text-on-surface/70">{normalizedStep.description}</p>
+                <h2 className="font-display text-3xl sm:text-4xl font-extrabold -mt-12 sm:-mt-16">{normalizedStep.title}</h2>
+                <p className="text-lg sm:text-xl text-on-surface/70">{normalizedStep.description}</p>
                 <div className="mx-auto w-full max-w-3xl">
                     <ProcessStepImage step={normalizedStep} />
                 </div>
@@ -199,14 +199,14 @@ function ProcessStepItem({ step, index }: { step: ProcessStep; index: number }) 
     }
 
     return (
-        <div className={`grid grid-cols-1 md:grid-cols-12 gap-12 items-start${normalizedStep.stat_card ? ' items-center' : ''}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start${normalizedStep.stat_card ? ' items-center' : ''}`}>
             <div className={`md:col-span-5 relative${isEven ? '' : ' order-1 md:order-2 md:pl-12'}`}>
-                <div className={`pointer-events-none absolute -top-10 z-0 font-label text-[7rem] leading-none font-bold text-primary/20 select-none md:-top-12 md:text-[10rem] ${isEven ? '-left-6 md:-left-8' : '-right-6 md:right-0'}`}>
+                <div className={`pointer-events-none absolute -top-8 z-0 font-label text-[5rem] leading-none font-bold text-primary/20 select-none sm:-top-10 sm:text-[7rem] md:-top-12 md:text-[10rem] ${isEven ? '-left-3 sm:-left-6 md:-left-8' : '-right-3 sm:-right-6 md:right-0'}`}>
                     {normalizedStep.number}
                 </div>
                 <div className="relative z-10 pt-8">
-                    <h2 className="font-display text-3xl font-bold mb-6">{normalizedStep.title}</h2>
-                    <p className="text-on-surface/70 text-lg mb-8 leading-relaxed">{normalizedStep.description}</p>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold mb-6">{normalizedStep.title}</h2>
+                    <p className="text-on-surface/70 text-base sm:text-lg mb-8 leading-relaxed">{normalizedStep.description}</p>
                     {normalizedStep.deliverables.length > 0 && (
                         <div className="space-y-4">
                             <h4 className="font-label text-xs uppercase tracking-widest text-primary font-bold">Deliverables</h4>
@@ -256,7 +256,7 @@ function ProcessStepsSection({ content }: { content: ProcessStepsContent }) {
             .map(([, step]) => step);
 
     return (
-        <section className="max-w-7xl mx-auto px-8 space-y-32">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 space-y-20 md:space-y-32">
             {items.map((step, index) => (
                 <ProcessStepItem key={step.number ?? `step-${index}`} step={step} index={index} />
             ))}
@@ -266,14 +266,14 @@ function ProcessStepsSection({ content }: { content: ProcessStepsContent }) {
 
 function ProcessPhilosophySection({ content }: { content: ProcessPhilosophyContent }) {
     return (
-        <section className="max-w-7xl mx-auto px-8 mt-48">
-            <div className="bg-on-surface text-surface rounded-[4rem] p-12 md:p-32 relative overflow-hidden text-center md:text-left">
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 mt-24 md:mt-48">
+            <div className="bg-on-surface text-surface rounded-3xl md:rounded-[4rem] p-8 sm:p-12 md:p-32 relative overflow-hidden text-center md:text-left">
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div>
-                        <h2 className="font-display text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">
+                        <h2 className="font-display text-3xl sm:text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">
                             The <span className="text-primary-fixed-dim">{content.heading.replace('The ', '')}</span>
                         </h2>
-                        <p className="text-xl text-surface/70 leading-relaxed mb-12">{content.body}</p>
+                        <p className="text-lg sm:text-xl text-surface/70 leading-relaxed mb-12">{content.body}</p>
                         <a href={content.button.href} className="bg-primary text-on-primary px-10 py-5 rounded-xl font-bold hover:scale-105 transition-transform flex items-center gap-3 mx-auto md:mx-0 w-fit">
                             {content.button.label} <span className="material-symbols-outlined">trending_flat</span>
                         </a>
@@ -326,17 +326,17 @@ export default function Process({ page, sections }: { page: PageData | null; sec
                 activeItem="process"
             />
 
-            <main className="pt-32 pb-20">
+            <main className="pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-20">
                 {sections.map(renderSection)}
             </main>
 
             {/* Footer */}
-            <footer className="w-full rounded-t-3xl bg-[#f0f3ff] dark:bg-[#151c27]">
-                <div className="flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full font-label text-xs uppercase tracking-widest">
+            <footer className="w-full rounded-t-3xl bg-surface-container-low dark:bg-[#151c27]">
+                <div className="flex flex-col md:flex-row justify-between items-center px-4 sm:px-6 lg:px-12 py-16 w-full font-label text-xs uppercase tracking-widest">
                     <div className="font-display font-bold text-[#151c27] dark:text-surface text-lg mb-8 md:mb-0">
                         Usman Haruna.
                     </div>
-                    <div className="flex gap-12 mb-8 md:mb-0 text-[#151c27]/50 dark:text-[#f9f9ff]/50">
+                    <div className="mb-8 flex flex-wrap justify-center gap-6 sm:gap-12 md:mb-0 text-[#151c27]/50 dark:text-[#f9f9ff]/50">
                         <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">Github</a>
                         <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">LinkedIn</a>
                         <a className="hover:text-[#bc0003] underline underline-offset-4 transition-all duration-200" href="#">Twitter</a>

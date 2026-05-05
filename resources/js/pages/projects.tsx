@@ -22,7 +22,10 @@ interface Project {
 }
 
 function caseStudyUrl(project: Project): string | null {
-    if (!project.slug) return null;
+    if (!project.slug) {
+        return null;
+    }
+
     return `/projects/${project.slug}`;
 }
 
@@ -30,12 +33,12 @@ function FeaturedCard({ project }: { project: Project }) {
     const url = caseStudyUrl(project);
     const inner = (
         <article className="group relative overflow-hidden bg-surface-container-low transition-all duration-500 hover:shadow-2xl hover:shadow-on-surface/5 md:col-span-8">
-            <div className="flex h-full min-h-125 flex-col justify-between p-10 md:p-16">
+            <div className="flex h-full min-h-96 flex-col justify-between p-6 sm:p-8 md:min-h-125 md:p-16">
                 <div>
                     <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
                         {project.display_number} - {project.category}
                     </div>
-                    <h2 className="font-display mb-4 text-4xl font-bold transition-colors group-hover:text-primary">
+                    <h2 className="font-display mb-4 text-3xl font-bold transition-colors group-hover:text-primary sm:text-4xl">
                         {project.title}
                     </h2>
                     {project.description && (
@@ -68,7 +71,7 @@ function FeaturedCard({ project }: { project: Project }) {
                     <img
                         src={project.image_url}
                         alt={project.title}
-                        className="h-auto w-64 rotate-12 transform"
+                        className="h-auto w-40 rotate-12 transform sm:w-64"
                     />
                 </div>
             )}
@@ -102,7 +105,7 @@ function CompactCard({ project }: { project: Project }) {
                 href={url}
                 className={`group overflow-hidden bg-surface-container transition-all duration-500 hover:bg-surface-container-high md:col-span-${project.grid_span}`}
             >
-                <article className="flex h-full flex-col p-10">
+                <article className="flex h-full flex-col p-6 sm:p-8 md:p-10">
                     <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
                         {project.display_number} - {project.category}
                     </div>
@@ -136,7 +139,7 @@ function CompactCard({ project }: { project: Project }) {
         <article
             className={`group overflow-hidden border border-outline-variant/15 bg-surface-container-lowest transition-all duration-500 hover:shadow-xl md:col-span-${project.grid_span}`}
         >
-            <div className="flex h-full flex-col p-10">
+            <div className="flex h-full flex-col p-6 sm:p-8 md:p-10">
                 <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
                     {project.display_number} - {project.category}
                 </div>
@@ -163,12 +166,12 @@ function DarkCard({ project }: { project: Project }) {
         <article
             className={`group relative overflow-hidden bg-on-surface text-surface-bright transition-all duration-500 md:col-span-${project.grid_span}`}
         >
-            <div className="flex h-full flex-col justify-center p-10 md:p-16">
+            <div className="flex h-full flex-col justify-center p-6 sm:p-8 md:p-16">
                 <div className="max-w-lg">
                     <div className="mb-6 font-mono text-[10px] tracking-widest text-surface-variant uppercase">
                         {project.display_number} - {project.category}
                     </div>
-                    <h2 className="font-display mb-6 text-4xl font-bold text-white transition-colors group-hover:text-primary-fixed">
+                    <h2 className="font-display mb-6 text-3xl font-bold text-white transition-colors group-hover:text-primary-fixed sm:text-4xl">
                         {project.title}
                     </h2>
                     {project.description && (
@@ -187,7 +190,7 @@ function DarkCard({ project }: { project: Project }) {
                 </div>
             </div>
             {project.icon_name && (
-                <div className="absolute top-0 right-0 p-8">
+                <div className="absolute top-0 right-0 p-5 sm:p-8">
                     <span className="material-symbols-outlined text-6xl text-surface-variant/20">
                         {project.icon_name}
                     </span>
@@ -203,7 +206,7 @@ function StandardCard({ project }: { project: Project }) {
             <article
                 className={`group overflow-hidden border border-outline-variant/15 bg-white transition-all duration-500 hover:shadow-xl md:col-span-${project.grid_span}`}
             >
-                <div className="flex h-full flex-col p-10">
+                <div className="flex h-full flex-col p-6 sm:p-8 md:p-10">
                     <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
                         {project.display_number} - {project.category}
                     </div>
@@ -230,7 +233,7 @@ function StandardCard({ project }: { project: Project }) {
         <article
             className={`group overflow-hidden bg-surface-container-low transition-all duration-500 hover:bg-surface-container md:col-span-${project.grid_span}`}
         >
-            <div className="flex h-full flex-col p-10">
+            <div className="flex h-full flex-col p-6 sm:p-8 md:p-10">
                 <div className="mb-6 font-mono text-[10px] tracking-widest text-tertiary uppercase">
                     {project.display_number} - {project.category}
                 </div>
@@ -297,14 +300,14 @@ export default function Projects({ projects }: { projects: Project[] }) {
                     activeItem="projects"
                 />
 
-                <main className="mx-auto max-w-screen-2xl px-8 pt-32 pb-24">
-                    <header className="relative mb-20">
+                <main className="mx-auto max-w-screen-2xl px-4 pb-16 pt-24 sm:px-6 sm:pb-20 sm:pt-28 md:px-8 md:pb-24 md:pt-32">
+                    <header className="relative mb-14 sm:mb-20">
                         <div className="flex flex-col items-end justify-between gap-8 md:flex-row">
                             <div className="max-w-3xl">
                                 <div className="mb-4 font-mono text-xs tracking-[0.2em] text-primary uppercase">
                                     Precision Engineering
                                 </div>
-                                <h1 className="font-display text-on-surface text-5xl leading-none font-bold tracking-tight md:text-7xl">
+                                <h1 className="font-display text-on-surface text-4xl leading-none font-bold tracking-tight sm:text-5xl md:text-7xl">
                                     Selected <br /> <span className="text-primary-container">Works.</span>
                                 </h1>
                             </div>
@@ -327,10 +330,10 @@ export default function Projects({ projects }: { projects: Project[] }) {
                         </div>
                     </section>
 
-                    <section className="mt-32 text-center">
-                        <div className="relative overflow-hidden bg-surface-container-high px-8 py-24">
+                    <section className="mt-20 text-center sm:mt-24 md:mt-32">
+                        <div className="relative overflow-hidden bg-surface-container-high px-4 py-16 sm:px-8 sm:py-20 md:py-24">
                             <div className="relative z-10">
-                                <h2 className="font-display mb-8 text-4xl font-bold md:text-5xl">Ready to start a project?</h2>
+                                <h2 className="font-display mb-8 text-3xl font-bold sm:text-4xl md:text-5xl">Ready to start a project?</h2>
                                 <p className="mx-auto mb-12 max-w-xl text-secondary">
                                     Whether it&apos;s an AI tool or a global management system, let&apos;s build something exceptional together.
                                 </p>
@@ -348,12 +351,12 @@ export default function Projects({ projects }: { projects: Project[] }) {
                     </section>
                 </main>
 
-                <footer className="w-full bg-slate-50 px-8 py-12">
+                <footer className="w-full bg-slate-50 px-4 py-12 sm:px-8">
                     <div className="mx-auto flex max-w-screen-2xl flex-col items-center justify-between gap-6 border-t border-slate-100 pt-12 md:flex-row">
                         <div className="font-mono text-[10px] tracking-widest text-slate-400 uppercase">
                             © 2024 Artisan Developer. Built with precision.
                         </div>
-                        <div className="flex gap-8 font-mono text-[10px] tracking-widest uppercase">
+                        <div className="flex flex-wrap justify-center gap-4 font-mono text-[10px] tracking-widest uppercase sm:gap-8">
                             <a className="text-slate-400 transition-colors duration-200 hover:translate-x-1 hover:text-red-600" href="#">
                                 Twitter
                             </a>
