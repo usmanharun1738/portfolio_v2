@@ -68,11 +68,12 @@ export function PortfolioNavbar({
     return (
         <header className="fixed top-0 z-50 w-full bg-background/80 shadow-[0_12px_40px_rgba(21,28,39,0.06)] backdrop-blur-xl">
             <nav className="mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-                <Link
-                    href={homeUrl}
-                    className="font-display text-base font-black tracking-tighter text-on-surface sm:text-xl"
-                >
-                    ARTISAN STACK
+                <Link href={homeUrl} className="flex items-center">
+                    <img
+                        src="/logo5.png"
+                        alt="Usman Harun"
+                        className="h-9 w-auto sm:h-10"
+                    />
                 </Link>
 
                 <div className="hidden items-center gap-8 md:flex">
